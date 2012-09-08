@@ -18,4 +18,4 @@ alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gundop="git push -f origin HEAD^:master"
-alias gcl="git clone -- recursive"
+alias gcl="git clone --recursive"
