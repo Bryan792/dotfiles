@@ -1,5 +1,3 @@
-set noswapfile
-
 " ----------------------------------------------------------------------------
 "  Text Formatting
 " ----------------------------------------------------------------------------
@@ -16,6 +14,8 @@ set nosmarttab             " fuck tabs
 set formatoptions+=n       " support for numbered/bullet lists
 "set textwidth=80           " wrap at 80 chars by default
 set virtualedit=block      " allow virtual edit in visual block ..
+set binary
+set noeol
 
 " ----------------------------------------------------------------------------
 "  Remapping
@@ -26,7 +26,6 @@ let mapleader = ","
 
 " exit to normal mode with 'jj'
 inoremap jj <ESC>
-
 
 " reflow paragraph with Q in normal and visual mode
 nnoremap Q gqap
@@ -49,10 +48,11 @@ inoremap <Up> <C-o>gk
 " ----------------------------------------------------------------------------
 
 set ruler                  " show the cursor position all the time
-set noshowcmd              " don't display incomplete commands
-set nolazyredraw           " turn off lazy redraw
+set showcmd                " display incomplete commands
+"set nolazyredraw           " turn off lazy redraw
 set number                 " line numbers
 set wildmenu               " turn on wild menu
+set cursorline
 set wildmode=list:longest,full
 set ch=2                   " command line height
 set backspace=2            " allow backspacing over everything in insert mode
@@ -60,26 +60,47 @@ set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
 set shortmess=filtIoOA     " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
-
+set title
+colorscheme molokai        " Use molokai colorscheme
+set scrolloff=3           " Start scrolling three lines before the horizontal window border
 
 " ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
 
+set showmode
 set showmatch              " brackets/braces that is
 set mat=5                  " duration to show matching brace (1/10 sec)
 set incsearch              " do incremental searching
 set laststatus=2           " always show the status line
 set ignorecase             " ignore case when searching
-set nohlsearch             " don't highlight searches
+set hlsearch               " highlight searches
 set visualbell             " shut the fuck up
 
+" ---------------------------------------------------------------------------
+" System Options
+" ---------------------------------------------------------------------------
+
+set clipboard=unnamed
+set modeline
+set modelines=4
+set mouse=a
+set exrc
+set secure
+set esckeys
+set ttyfast
+set gdefault
+set encoding=utf-8 nobomb
 
 " ---------------------------------------------------------------------------
 "  Strip all trailing whitespace in file
 " ---------------------------------------------------------------------------
 
 function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
 endfunction
-map ,s :call StripWhitespace ()<CR>
+map <leader>s :call StripWhitespace ()<CR>
