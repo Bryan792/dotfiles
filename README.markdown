@@ -1,16 +1,22 @@
-# dsnyder does dotfiles
+# dsnyder : dotfiles
 
-## dotfiles
-These dotfiles are modified from [mbleigh's](https://github.com/mbleigh/dotfiles) 
-dot files, which are based on [holman's](https://github.com/holman/dotfiles). 
-I have also taken work from [mathiasbynens'](https://github.com/mathiasbynens),
-including some of the bash configurations. These are the dotfiles I use. Some, if 
-not all of the osx related configurations have been removed and these dotfiles are
-being used in my Mint Linux env. 
+## Intro
+These are the dotfiles I am using (on Linux!). Expect modifications to continue
+to these files. These dotfile projects (in general) are pieced together
+from various other dotfile projects. A comprehensive list of who did what
+could be difficult. So here is my lazy stab at it:
+- [Michael Bleigh's](https://github.com/mbleigh) dotfiles is what my dotfiles originated from
+- [Zach Holman's](https://github.com/holman) Michael forked from
+- [Mathias Bynens](https://github.com/mathiasbynens) had some neat stuff I've included here
 
-If you're interested in the philosophy behind why projects like these are
-awesome, you might want to [read my post on the
-subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
+I would say the focus here is on zsh, but I have some bash configs as well.
+It seems like there is a lot of Ruby-centric configurations as well, which
+is an artifact of who wrote the original configurations.
+
+I (and Michale Bleigh) have tried to gut out a lot of the OS X specific 
+configurations. I am running on Linux Mint on at home, and that is all
+that I have tested these configurations on. I may add some Cygwin support
+later on.
 
 ## install
 
@@ -19,11 +25,13 @@ subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 - `rake install`
 
 The install rake task will symlink the appropriate files in `.dotfiles` to your
-home directory. Everything is configured and tweaked within `~/.dotfiles`,
-though.
+home directory. Additionally, it will clone [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) into your home directory as `.oh-my-zsh`
+**WARNING: Currently the cloning just nukes your current ~/.oh-my-zsh if it exists**
 
-The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
-which sets up a few paths that'll be different on your particular machine.
+Things you will want to take a glance at and tweak:
+- zsh/zshrc.symlink
+- system/\*
+- git/gitconfig.symlink.example
 
 ## modify and reload
 
@@ -58,18 +66,8 @@ There's a few special files in the hierarchy.
 - **topic/\*.completion.sh**: Any files ending in `completion.sh` get loaded
   last so that they get loaded after we set up zsh autocomplete functions.
 
-## add-ons
-
-There are a few things I use to make my life awesome. They're not a required
-dependency, but if you install them they'll make your life a bit more like a
-bubble bath.
-
-- If you want some more colors for things like `ls`, install grc: `brew install
-  grc`.
-
 ## bugs
 
 If you run into any problem, just submit a bug and I'll look into it. These 
-dotfiles are only intended to work on a Linux distro. I may add Cygwin support
-in the future. Just [open an issue](https://github.com/dsnyder/dotfiles/issues) on this repository
+dotfiles are only intended to work on a Linux distro. Just [open an issue](https://github.com/dsnyder/dotfiles/issues) on this repository
 if you hit anything nasty.
