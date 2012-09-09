@@ -1,10 +1,12 @@
-# mbleigh does dotfiles
+# dsnyder does dotfiles
 
 ## dotfiles
-
-These are my heavily specific dotfiles based almost entirely on [holman's](https://github.com/holman/dotfiles).
-The major modifications have been to remove OS X specific code and generally
-make it more Linux (specifically, Ubuntu) friendly.
+These dotfiles are modified from [mbleigh's](https://github.com/mbleigh/dotfiles) 
+dot files, which are based on [holman's](https://github.com/holman/dotfiles). 
+I have also taken work from [mathiasbynens'](https://github.com/mathiasbynens),
+including some of the bash configurations. These are the dotfiles I use. Some, if 
+not all of the osx related configurations have been removed and these dotfiles are
+being used in my Mint Linux env. 
 
 If you're interested in the philosophy behind why projects like these are
 awesome, you might want to [read my post on the
@@ -12,7 +14,7 @@ subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 
 ## install
 
-- `git clone git://github.com/holman/dotfiles ~/.dotfiles`
+- `git clone git://github.com/dsnyder/dotfiles ~/.dotfiles`
 - `cd ~/.dotfiles`
 - `rake install`
 
@@ -22,6 +24,10 @@ though.
 
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
+
+## modify and reload
+
+- `reload!` will load any changes you have made to any of the files 
 
 ## topical
 
@@ -60,25 +66,10 @@ bubble bath.
 
 - If you want some more colors for things like `ls`, install grc: `brew install
   grc`.
-- If you install the excellent [rbenv](https://github.com/sstephenson/rbenv) to
-  manage multiple rubies, your current branch will show up in the prompt. Bonus.
 
 ## bugs
 
-I want this to work for everyone; that means when you clone it down it should
-work for you even though you may not have `rbenv` installed, for example. That
-said, I do use this as *my* dotfiles, so there's a good chance I may break
-something if I forget to make a check for a dependency.
-
-If you're brand-new to the project and run into any blockers, please
-[open an issue](https://github.com/holman/dotfiles/issues) on this repository
-and I'd love to get it fixed for you!
-
-## thanks
-
-I forked [Ryan Bates](http://github.com/ryanb)' excellent
-[dotfiles](http://github.com/ryanb/dotfiles) for a couple years before the
-weight of my changes and tweaks inspired me to finally roll my own. But Ryan's
-dotfiles were an easy way to get into bash customization, and then to jump ship
-to zsh a bit later. A decent amount of the code in these dotfiles stem or are
-inspired from Ryan's original project.
+If you run into any problem, just submit a bug and I'll look into it. These 
+dotfiles are only intended to work on a Linux distro. I may add Cygwin support
+in the future. Just [open an issue](https://github.com/dsnyder/dotfiles/issues) on this repository
+if you hit anything nasty.
