@@ -33,7 +33,7 @@
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
 	# resolve the crlf vs lf issues with linux,osx,windows
-	autocrlf = true
+	autocrlf = input
 [apply]
         whitespace = nowarn
 [github]
