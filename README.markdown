@@ -1,4 +1,4 @@
-# dsnyder : dotfiles
+# bryan792 : dotfiles
 
 ## Intro
 These are the dotfiles I am using (on Linux!). Expect modifications to continue
