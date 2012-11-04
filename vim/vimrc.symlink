@@ -1,4 +1,9 @@
 set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
+
+" ----------------------------------------------------------------------------
+"  Vundle
+" ----------------------------------------------------------------------------
+
 filetype off
 
 " Setting up Vundle - the vim plugin bundler
@@ -19,6 +24,7 @@ filetype off
 "    Bundle 'altercation/vim-colors-solarized' "T-H-E colorscheme
 "    Bundle 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
     Bundle 'flazz/vim-colorschemes'
+	Bundle 'chriskempson/vim-tomorrow-theme'
 "...All your other bundles...
     if iCanHazVundle == 0
         echo "Installing Bundles, please ignore key map error messages"
@@ -38,26 +44,11 @@ filetype off
  " NOTE: comments after Bundle command are not allowed..
 
 
-filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
-set t_Co=256              " enable 256-color mode.
-syntax enable             " enable syntax highlighting (previously syntax on).
-colorscheme molokai        " set colorscheme
-set number                " show line numbers
-set laststatus=2          " last window always has a statusline
-filetype indent on        " activates indenting for files
-set nohlsearch            " Don't continue to highlight searched phrases.
-set incsearch             " But do highlight as you type your search.
-set ignorecase            " Make searches case-insensitive.
-set ruler                 " Always show info along bottom.
-set autoindent            " auto-indent
-set tabstop=2             " tab spacing
-set softtabstop=4         " unify
-set shiftwidth=2          " indent/outdent by 4 columns
-set shiftround            " always indent/outdent to the nearest tabstop
-set expandtab             " use spaces instead of tabs
-set smarttab              " use tabs at the start of a line, spaces elsewhere
-set nowrap                " don't wrap text
 
+filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
+"set tabstop=2             " tab spacing
+"set softtabstop=4         " unify
+"set shiftround            " always indent/outdent to the nearest tabstop
 
 " ----------------------------------------------------------------------------
 "  Text Formatting
@@ -73,7 +64,7 @@ set tabstop=4
 set expandtab              " expand tabs to spaces
 set nosmarttab             " fuck tabs
 set formatoptions+=n       " support for numbered/bullet lists
-"set textwidth=80           " wrap at 80 chars by default
+set textwidth=80           " wrap at 80 chars by default
 set virtualedit=block      " allow virtual edit in visual block ..
 set binary
 set noeol
@@ -108,6 +99,8 @@ inoremap <Up> <C-o>gk
 "  UI
 " ----------------------------------------------------------------------------
 
+set t_Co=256              " enable 256-color mode.
+
 set ruler                  " show the cursor position all the time
 set showcmd                " display incomplete commands
 "set nolazyredraw           " turn off lazy redraw
@@ -123,7 +116,8 @@ set shortmess=filtIoOA     " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set title
-colorscheme molokai        " Use molokai colorscheme
+"Set colorscheme
+colorscheme Tomorrow-Night-Bright
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
 
 " ----------------------------------------------------------------------------
@@ -136,8 +130,9 @@ set mat=5                  " duration to show matching brace (1/10 sec)
 set incsearch              " do incremental searching
 set laststatus=2           " always show the status line
 set ignorecase             " ignore case when searching
-set hlsearch               " highlight searches
+"set hlsearch               " highlight searches
 set visualbell             " shut the fuck up
+set nohlsearch             " Don't continue to highlight searched phrases.
 
 " ---------------------------------------------------------------------------
 " System Options
