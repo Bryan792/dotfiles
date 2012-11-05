@@ -21,10 +21,10 @@ filetype off
     Bundle 'gmarik/vundle'
     "Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
-    Bundle 'altercation/vim-colors-solarized'
+"    Bundle 'altercation/vim-colors-solarized'
 	" T-H-E colorscheme
 "    Bundle 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
-    Bundle 'flazz/vim-colorschemes'
+	Bundle 'flazz/vim-colorschemes'
 	Bundle 'chriskempson/vim-tomorrow-theme'
 	Bundle 'tpope/vim-surround'
 	Bundle 'tpope/vim-fugitive'
@@ -32,7 +32,7 @@ filetype off
 "	Bundle 'Shougo/unite.vim'
 	Bundle 'scrooloose/syntastic'
 	Bundle 'Shougo/vimproc'
-	Bundle 'Shougo/vimshell'
+"	Bundle 'Shougo/vimshell'
 "	Bundle 'scrooloose/nerdtree'
     Bundle 'nathanaelkane/vim-indent-guides'
 	Bundle 'mileszs/ack.vim'
