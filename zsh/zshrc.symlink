@@ -26,3 +26,5 @@ for config_file ($DOTFILES/**/completion.sh) source $config_file
 ZSH_THEME="mortalscumbag"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
+
+screenfetch

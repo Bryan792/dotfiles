@@ -57,7 +57,7 @@ filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
 set autoindent             " automatic indent new lines
 set smartindent            " be smart about it
 inoremap # X<BS>#
-set nowrap                 " do not wrap lines
+"set nowrap                 " do not wrap lines
 set softtabstop=2          " yep, two
 set shiftwidth=2           " ..
 set tabstop=4
