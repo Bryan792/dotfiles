@@ -131,6 +131,9 @@ set title
 "Set colorscheme
 colorscheme Tomorrow-Night-Bright
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
 
 " ----------------------------------------------------------------------------
 " Visual Cues
@@ -173,3 +176,5 @@ function! StripWhitespace ()
     call setreg('/', old_query)
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
+
+
