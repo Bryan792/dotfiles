@@ -34,7 +34,7 @@ filetype off
 	Bundle 'Shougo/vimproc'
 "	Bundle 'Shougo/vimshell'
 "	Bundle 'scrooloose/nerdtree'
-    Bundle 'nathanaelkane/vim-indent-guides'
+  Bundle 'nathanaelkane/vim-indent-guides'
 	Bundle 'mileszs/ack.vim'
 
 "...All your other bundles...
@@ -130,9 +130,14 @@ set nostartofline          " don't jump to the start of line when scrolling
 set title
 "Set colorscheme
 colorscheme Tomorrow-Night-Bright
+set background=dark
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+set nobackup
+set nowb
+set noswapfile
 
 
 " ----------------------------------------------------------------------------
@@ -177,4 +182,4 @@ function! StripWhitespace ()
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
 
-
+let g:indent_guides_guide_size = 1
