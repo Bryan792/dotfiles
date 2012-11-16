@@ -9,11 +9,11 @@ servers = (
     port = "6667";
   },
   { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  { 
+  {
     address = "irc.quakenet.org";
     chatnet = "QuakeNet";
     port = "6667";
-		autoconnect = "yes";
+    autoconnect = "yes";
   },
   { address = "irc.oftc.net"; chatnet = "OFTC"; port = "6667"; },
   {
@@ -288,4 +288,5 @@ settings = {
     nick = "Bryan792";
   };
   "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { theme = "xchat"; };
 };
