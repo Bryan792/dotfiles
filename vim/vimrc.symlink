@@ -78,8 +78,9 @@ set nosmarttab             " fuck tabs
 set formatoptions+=n       " support for numbered/bullet lists
 set textwidth=80           " wrap at 80 chars by default
 set virtualedit=block      " allow virtual edit in visual block ..
-set binary
-set noeol
+"	Messes with tab to spaces, needed so that no newline at EOF
+"set binary
+"set noeol
 
 " ----------------------------------------------------------------------------
 "  Remapping
@@ -182,4 +183,5 @@ function! StripWhitespace ()
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
 
-let g:indent_guides_guide_size = 1
+"let g:indent_guides_guide_size = 1
+"set expandtab
