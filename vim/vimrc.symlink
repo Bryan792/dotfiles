@@ -183,5 +183,4 @@ function! StripWhitespace ()
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
 
-"let g:indent_guides_guide_size = 1
-"set expandtab
+let g:indent_guides_guide_size = 1
