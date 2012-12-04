@@ -1,4 +1,5 @@
 alias reload!='. ~/.zshrc'
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
@@ -96,3 +97,9 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# Use apt-fast if available
+if $(which apt-fast &>/dev/null)
+then
+  alias apt-get="apt-fast"
+fi    
