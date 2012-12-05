@@ -44,6 +44,7 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 alias sins='sudo apt-get install'
+alias upgrade='sudo apt-get -y update && sudo apt-get -y upgrade'
 
 # Gzip-enabled `curl`
 alias gurl="curl --compressed"
@@ -102,4 +103,5 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 if $(which apt-fast &>/dev/null)
 then
   alias apt-get="apt-fast"
+  alias upgrade='sudo apt-fast -y update && sudo apt-fast -y upgrade'
 fi    
