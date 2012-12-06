@@ -36,6 +36,7 @@ filetype off
 "	Bundle 'scrooloose/nerdtree'
   Bundle 'nathanaelkane/vim-indent-guides'
 	Bundle 'mileszs/ack.vim'
+  Bundle 'jcf/vim-latex'
 
 "...All your other bundles...
     if iCanHazVundle == 0
@@ -184,3 +185,6 @@ endfunction
 map <leader>s :call StripWhitespace ()<CR>
 
 let g:indent_guides_guide_size = 1
+let g:tex_flavor='latex'
+set grepprg=grep\ -nH\ $*
+
