@@ -9,18 +9,9 @@ could be difficult. So here is my lazy stab at it:
 - [Zach Holman's](https://github.com/holman) Michael forked from
 - [Mathias Bynens](https://github.com/mathiasbynens) had some neat stuff I've included here
 
-I would say the focus here is on zsh, but I have some bash configs as well.
-It seems like there is a lot of Ruby-centric configurations as well, which
-is an artifact of who wrote the original configurations.
-
-I (and Michale Bleigh) have tried to gut out a lot of the OS X specific 
-configurations. I am running on Linux Mint on at home, and that is all
-that I have tested these configurations on. I may add some Cygwin support
-later on.
-
 ## install
 
-- `git clone git://github.com/dsnyder/dotfiles ~/.dotfiles`
+- `git clone git://github.com/bryan792/dotfiles ~/.dotfiles`
 - `cd ~/.dotfiles`
 - `rake install`
 
