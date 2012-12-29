@@ -117,7 +117,8 @@ channels = (
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
   { name = "#kpopflash"; chatnet = "Quakenet"; autojoin = "yes"; },
   { name = "#linuxmint-chat"; chatnet = "LinuxMintServer"; },
-  { name = "#linuxmint-help"; chatnet = "LinuxMintServer"; }
+  { name = "#linuxmint-help"; chatnet = "LinuxMintServer"; },
+  { name = "#redditnzb"; chatnet = "Snoonet"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -289,4 +290,5 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = { theme = "xchat"; };
+  "perl/core/scripts" = { nicklist_height = "39"; nicklist_width = "20"; };
 };

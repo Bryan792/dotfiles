@@ -28,5 +28,5 @@ compinit
  ZSH_THEME="mortalscumbag"
  plugins=(git)
  source $ZSH/oh-my-zsh.sh
-
-screenfetch
+# System info at start of every terminal
+# screenfetch
