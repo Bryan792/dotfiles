@@ -4,12 +4,12 @@ use vars qw($VERSION %IRSSI);
 $VERSION = "1";
 %IRSSI = (
     authors     => "Timo Sirainen, Ian Peters",
-    contact	=> "tss\@iki.fi", 
+    contact => "tss\@iki.fi", 
     name        => "Nick Color",
     description => "assign a different color for each nick",
-    license	=> "Public Domain",
-    url		=> "http://irssi.org/",
-    changed	=> "2002-03-04T22:47+0100"
+    license => "Public Domain",
+    url   => "http://irssi.org/",
+    changed => "2002-03-04T22:47+0100"
 );
 
 # hm.. i should make it possible to use the existing one..
@@ -139,7 +139,7 @@ sub cmd_color {
     Irssi::print ("\nSaved Colors:");
     foreach my $nick (keys %saved_colors) {
       Irssi::print (chr (3) . "$saved_colors{$nick}$nick" .
-		    chr (3) . "1 ($saved_colors{$nick})");
+        chr (3) . "1 ($saved_colors{$nick})");
     }
   } elsif ($op eq "preview") {
     Irssi::print ("\nAvailable colors:");

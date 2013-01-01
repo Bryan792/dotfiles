@@ -39,6 +39,14 @@ servers = (
     port = "6667";
     use_ssl = "no";
     ssl_verify = "no";
+  },
+  {
+    address = "irc.synirc.net";
+    chatnet = "synIRC";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
   }
 );
 
@@ -109,6 +117,7 @@ chatnets = {
   Snoonet = { type = "IRC"; };
   LinuxMintServer = { type = "IRC"; };
 
+  synIRC = { type = "IRC"; };
 };
 
 channels = (
@@ -118,7 +127,8 @@ channels = (
   { name = "#kpopflash"; chatnet = "Quakenet"; autojoin = "yes"; },
   { name = "#linuxmint-chat"; chatnet = "LinuxMintServer"; },
   { name = "#linuxmint-help"; chatnet = "LinuxMintServer"; },
-  { name = "#redditnzb"; chatnet = "Snoonet"; autojoin = "yes"; }
+  { name = "#redditnzb"; chatnet = "Snoonet"; autojoin = "yes"; },
+  { name = "#nzbx"; chatnet = "synIRC"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -280,6 +290,13 @@ statusbar = {
         topicbarend = { priority = "100"; alignment = "right"; };
       };
     };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 settings = {
@@ -289,6 +306,71 @@ settings = {
     nick = "Bryan792";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { theme = "xchat"; };
-  "perl/core/scripts" = { nicklist_height = "39"; nicklist_width = "20"; };
+  "fe-common/core" = {
+    theme = "xchat";
+    autolog = "yes";
+    autolog_path = "~/Logs/irc/$tag_$0.%Y-%m-%d.log";
+    autolog_level = "MSGS ACTIONS KICKS PUBLIC";
+  };
+  "perl/core/scripts" = {
+    nicklist_height = "26";
+    nicklist_width = "20";
+    awl_display_key = "$Q%K|%n$H$C$S";
+    nicklist_automode = "fifo";
+  };
 };
+logs = { };
+hilights = (
+  { text = "bryan792"; nick = "yes"; word = "yes"; },
+  { text = "792"; nick = "yes"; word = "yes"; },
+  { text = "brian792"; nick = "yes"; word = "yes"; }
+);
+keyboard = (
+  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; },
+  { key = "meta-next"; id = "command"; data = "nicklist scroll +10"; },
+  { key = "meta-prior"; id = "command"; data = "nicklist scroll -10"; }
+);
+windows = {
+  1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
+  2 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#kpopflash";
+        tag = "QuakeNet";
+      }
+    );
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#kpop";
+        tag = "Snoonet";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#redditnzb";
+        tag = "Snoonet";
+      }
+    );
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#nzbx";
+        tag = "synIRC";
+      }
+    );
+  };
+};
+mainwindows = { 5 = { first_line = "1"; lines = "23"; }; };

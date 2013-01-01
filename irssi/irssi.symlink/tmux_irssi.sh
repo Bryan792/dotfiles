@@ -6,13 +6,12 @@ then
 fi
 
 tmux new-session -d -s ircuser 
-tmux split-window -t ircuser -h -l 20
+tmux split-window -t ircuser -h -l 20 'tmux select-pane -l & cat $IRSSI_PATH/nicklistfifo'  
 
 tmux send-keys -t ircuser "tmux send-keys -t0 \"irssi\" C-m; \ 
     tmux send-keys -t0 \"/set nicklist_height \$(stty size | cut -f1 -d' ' -)\" C-m; \
-    tmux send-keys -t0 \"/set nicklist_width \$(stty size | cut -f2 -d' ' -)\" C-m; \ 
+    tmux send-keys -t0 \"/set nicklist_width 20\" C-m; \ 
     tmux send-keys -t0 \"/nicklist fifo\" C-m; \
-    tmux send-keys -t1 \"cat $IRSSI_PATH/nicklistfifo\" C-m; \
     tmux select-pane -t0" C-m
 
 tmux attach-session -t ircuser
