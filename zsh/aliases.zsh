@@ -104,4 +104,35 @@ if $(which apt-fast &>/dev/null)
 then
   alias apt-get="apt-fast"
   alias upgrade='sudo apt-fast -y update && sudo apt-fast -y upgrade'
-fi    
+fi
+
+#gitcd
+_git_cd() {
+  if [[ "$1" != "" ]]; then
+    cd "$@"
+  else
+    local OUTPUT
+    OUTPUT="$(git rev-parse --show-toplevel 2>/dev/null)"
+    if [[ -e "$OUTPUT" ]]; then
+      if [[ "$OUTPUT" != "$(pwd)" ]]; then
+        cd "$OUTPUT"
+      else
+        cd
+      fi
+    else
+      cd 
+    fi
+  fi
+}
+
+alias cd=_git_cd
+
+cd () {
+  if [[ -f "$1" ]]; then
+    builtin cd $(dirname "$1")
+  elif [[ "$1" == "" ]]; then
+    builtin cd
+  else
+    builtin cd "$1"
+  fi
+}  

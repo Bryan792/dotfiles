@@ -9,8 +9,8 @@ task :install do
   backup_all = false
 
   #install oh-my-zsh
-  system %Q{rm -rf "$HOME/.oh-my-zsh"}
-  system %Q{/usr/bin/env git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh}
+#  system %Q{rm -rf "$HOME/.oh-my-zsh"}
+#  system %Q{/usr/bin/env git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh}
 
   linkables.each do |linkable|
     overwrite = false

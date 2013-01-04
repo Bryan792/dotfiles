@@ -313,7 +313,7 @@ settings = {
     autolog_level = "MSGS ACTIONS KICKS PUBLIC";
   };
   "perl/core/scripts" = {
-    nicklist_height = "26";
+    nicklist_height = "23";
     nicklist_width = "20";
     awl_display_key = "$Q%K|%n$H$C$S";
     nicklist_automode = "fifo";

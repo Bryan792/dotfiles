@@ -35,7 +35,7 @@ filetype off
 "	Bundle 'Shougo/vimshell'
 "	Bundle 'scrooloose/nerdtree'
   Bundle 'nathanaelkane/vim-indent-guides'
-	Bundle 'mileszs/ack.vim'
+"	Bundle 'mileszs/ack.vim'
   Bundle 'jcf/vim-latex'
 
 "...All your other bundles...
@@ -82,6 +82,7 @@ set virtualedit=block      " allow virtual edit in visual block ..
 "	Messes with tab to spaces, needed so that no newline at EOF
 "set binary
 "set noeol
+set paste
 
 " ----------------------------------------------------------------------------
 "  Remapping
