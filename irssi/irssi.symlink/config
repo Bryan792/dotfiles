@@ -331,8 +331,14 @@ keyboard = (
   { key = "meta-prior"; id = "command"; data = "nicklist scroll -10"; }
 );
 windows = {
-  1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
-  2 = {
+  1 = { 
+    immortal = "yes";
+    name = "(status)";
+    level = "ALL";
+    sticky = "yes";
+  };
+  2 = { name = "hilight"; sticky = "yes"; };
+  3 = {
     items = (
       {
         type = "CHANNEL";
@@ -341,8 +347,10 @@ windows = {
         tag = "QuakeNet";
       }
     );
+    sticky = "yes";
+    parent = "1";
   };
-  3 = {
+  4 = {
     items = (
       {
         type = "CHANNEL";
@@ -351,8 +359,10 @@ windows = {
         tag = "Snoonet";
       }
     );
+    sticky = "yes";
+    parent = "1";
   };
-  4 = {
+  5 = {
     items = (
       {
         type = "CHANNEL";
@@ -361,8 +371,10 @@ windows = {
         tag = "Snoonet";
       }
     );
+    sticky = "yes";
+    parent = "1";
   };
-  5 = {
+  6 = {
     items = (
       {
         type = "CHANNEL";
@@ -371,6 +383,19 @@ windows = {
         tag = "synIRC";
       }
     );
+    sticky = "yes";
+    parent = "1";
   };
 };
-mainwindows = { 5 = { first_line = "1"; lines = "23"; }; };
+mainwindows = {
+  1 = { first_line = "7"; lines = "35"; };
+  2 = { first_line = "1"; lines = "6"; };
+};
+ignores = (
+  { 
+    mask = "JOINS";
+    level = "PARTS QUITS NICKS";
+    channels = ( "#nzbx" );
+  },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#nzbx" ); }
+);

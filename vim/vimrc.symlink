@@ -82,7 +82,7 @@ set virtualedit=block      " allow virtual edit in visual block ..
 "	Messes with tab to spaces, needed so that no newline at EOF
 "set binary
 "set noeol
-set paste
+"set paste
 
 " ----------------------------------------------------------------------------
 "  Remapping
@@ -132,7 +132,6 @@ set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set title
 "Set colorscheme
-colorscheme Tomorrow-Night-Bright
 set background=dark
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -189,3 +188,5 @@ let g:indent_guides_guide_size = 1
 let g:tex_flavor='latex'
 set grepprg=grep\ -nH\ $*
 
+set autoindent             " automatic indent new lines
+colorscheme Tomorrow-Night-Eighties
