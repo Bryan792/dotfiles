@@ -18,6 +18,9 @@ then
   source ~/.localrc
 fi
 
+autoload -U zsh-mime-setup
+zsh-mime-setup
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit

@@ -330,12 +330,21 @@ keyboard = (
   { key = "meta-next"; id = "command"; data = "nicklist scroll +10"; },
   { key = "meta-prior"; id = "command"; data = "nicklist scroll -10"; }
 );
+ignores = (
+  { 
+    mask = "JOINS";
+    level = "PARTS QUITS NICKS";
+    channels = ( "#nzbx" );
+  },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#nzbx" ); }
+);
 windows = {
-  1 = { 
+  1 = {
     immortal = "yes";
     name = "(status)";
     level = "ALL";
     sticky = "yes";
+    parent = "6";
   };
   2 = { name = "hilight"; sticky = "yes"; };
   3 = {
@@ -348,7 +357,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "6";
   };
   4 = {
     items = (
@@ -360,7 +369,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "6";
   };
   5 = {
     items = (
@@ -372,7 +381,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "6";
   };
   6 = {
     items = (
@@ -384,18 +393,9 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
   };
 };
 mainwindows = {
-  1 = { first_line = "7"; lines = "35"; };
-  2 = { first_line = "1"; lines = "6"; };
+  6 = { first_line = "8"; lines = "31"; };
+  2 = { first_line = "1"; lines = "7"; };
 };
-ignores = (
-  { 
-    mask = "JOINS";
-    level = "PARTS QUITS NICKS";
-    channels = ( "#nzbx" );
-  },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#nzbx" ); }
-);
