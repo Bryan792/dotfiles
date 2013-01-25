@@ -33,12 +33,12 @@ filetype off
 	Bundle 'scrooloose/syntastic'
 	Bundle 'Shougo/vimproc'
 "	Bundle 'Shougo/vimshell'
-"	Bundle 'scrooloose/nerdtree'
+	Bundle 'scrooloose/nerdtree'
   Bundle 'nathanaelkane/vim-indent-guides'
 "	Bundle 'mileszs/ack.vim'
   Bundle 'jcf/vim-latex'
 
-"...All your other bundles...
+  "...All your other bundles...
     if iCanHazVundle == 0
         echo "Installing Bundles, please ignore key map error messages"
         echo ""
@@ -132,7 +132,8 @@ set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set title
 "Set colorscheme
-set background=dark
+colorscheme Tomorrow-Night-Eighties
+"set background=dark
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
@@ -163,7 +164,7 @@ set nohlsearch             " Don't continue to highlight searched phrases.
 set clipboard=unnamed
 set modeline
 set modelines=4
-set mouse=a
+"set mouse=a
 set exrc
 set secure
 set esckeys
@@ -189,4 +190,3 @@ let g:tex_flavor='latex'
 set grepprg=grep\ -nH\ $*
 
 set autoindent             " automatic indent new lines
-colorscheme Tomorrow-Night-Eighties
