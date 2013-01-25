@@ -1,17 +1,26 @@
-#!/bin/bash
-if [ -z "$IRSSI_PATH" ]
-then 
-    echo "Environment variable IRSSI_PATH not set."
-    exit
+#!/bin/sh
+
+T3=$(pidof irssi)
+
+irssi_nickpane() {
+    tmux setw main-pane-width $(( $(tput cols) - 21));
+    tmux splitw -v "cat ~/.irssi/nicklistfifo";
+    tmux selectl main-vertical;
+    tmux selectw -t irssi;
+    tmux selectp -t 0;
+}
+
+irssi_repair() {
+    tmux selectw -t irssi
+    (( $(tmux lsp | wc -l) > 1 )) && tmux killp -a -t 0
+    irssi_nickpane
+}
+
+if [ -z "$T3" ]; then
+    tmux new-session -d -s main;
+    tmux new-window -t main -n irssi irssi;
+    irssi_nickpane ;
 fi
-
-tmux new-session -d -s ircuser 
-tmux split-window -t ircuser -h -l 20 'tmux select-pane -l & cat $IRSSI_PATH/nicklistfifo'  
-
-tmux send-keys -t ircuser "tmux send-keys -t0 \"irssi\" C-m; \ 
-    tmux send-keys -t0 \"/set nicklist_height \$(stty size | cut -f1 -d' ' -)\" C-m; \
-    tmux send-keys -t0 \"/set nicklist_width 20\" C-m; \ 
-    tmux send-keys -t0 \"/nicklist fifo\" C-m; \
-    tmux select-pane -t0" C-m
-
-tmux attach-session -t ircuser
+    tmux attach-session -d -t main;
+    irssi_repair ;
+exit 0
