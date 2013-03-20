@@ -1,16 +1,6 @@
 # Load dependencies.
 pmodload 'helper'
 
-function virtualenv_info {
-    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
-}
- 
-function vcprompt_info {
-    vcprompt --format-git "on ± %{$fg[magenta]%}%b%{$reset_color%}%{$fg[green]%}%u%m%a%{$reset_color%}" \
-             --format-hg  "on ☿ %{$fg[magenta]%}%b%{$reset_color%}%{$fg[green]%}%u%m%{$reset_color%}" \
-             --format    "on %s %{$fg[magenta]%}%b%{$reset_color%}%{$fg[green]%}%u%m%{$reset_color%}"
-}
- 
 function box_name {
     [ -f ~/.box-name ] && cat ~/.box-name || hostname -s
 }
@@ -18,13 +8,14 @@ function box_name {
 function prompt_bryan792_pwd {
   local pwd="${PWD/#$HOME/~}"
 
-#  if [[ "$pwd" == (#m)[/~] ]]; then
-#    _prompt_bryan792_pwd="$MATCH"
-#    unset MATCH
-#  else
-#    _prompt_bryan792_pwd="${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}/${pwd:t}"
-#  fi
-  _prompt_bryan792_pwd=$pwd
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_bryan792_pwd="$MATCH"
+    unset MATCH
+  else
+    _prompt_bryan792_pwd="${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}/${pwd:t}"
+  fi
+   __prompt_bryan792_pwd=$pwd
+
 }
 
 function prompt_bryan792_precmd {
@@ -35,9 +26,9 @@ function prompt_bryan792_precmd {
   prompt_bryan792_pwd
 
   # Get Git repository information.
-  if (( $+functions[git-info] )); then
-    git-info
-  fi
+#  if (( $+functions[git-info] )); then
+#    git-info
+#  fi
 }
 
 function prompt_bryan792_setup {
@@ -59,25 +50,27 @@ function prompt_bryan792_setup {
   zstyle ':prezto:module:git:info:added' format ' %%B%F{green}✚%f%%b'
   zstyle ':prezto:module:git:info:ahead' format ' %%B%F{yellow}⬆%f%%b'
   zstyle ':prezto:module:git:info:behind' format ' %%B%F{yellow}⬇%f%%b'
-  zstyle ':prezto:module:git:info:branch' format ':%F{green}%b%f'
-  zstyle ':prezto:module:git:info:commit' format ':%F{green}%.7c%f'
+  zstyle ':prezto:module:git:info:branch' format ':%F{magenta}%b%f'
+  zstyle ':prezto:module:git:info:commit' format ':%F{magenta}%.7c%f'
   zstyle ':prezto:module:git:info:deleted' format ' %%B%F{red}✖%f%%b'
   zstyle ':prezto:module:git:info:modified' format ' %%B%F{blue}✱%f%%b'
   zstyle ':prezto:module:git:info:position' format ':%F{green}%p%f'
-  zstyle ':prezto:module:git:info:renamed' format ' %%B%F{magenta}➜%f%%b'
+  zstyle ':prezto:module:git:info:renamed' format ' %%B%F{8}➜%f%%b'
   zstyle ':prezto:module:git:info:stashed' format ' %%B%F{cyan}✭%f%%b'
   zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{yellow}═%f%%b'
   zstyle ':prezto:module:git:info:untracked' format ' %%B%F{white}◼%f%%b'
   zstyle ':prezto:module:git:info:keys' format \
-    'prompt' ' %F{blue}git%f$(coalesce "%b" "%p" "%c")%s' \
+    'prompt' ' %F{12}git%f$(coalesce "%b" "%p" "%c")%s' \
     'rprompt' '%A%B%S%a%d%m%r%U%u'
 
   # Define prompts.
-  PROMPT='%F{cyan}${_prompt_bryan792_pwd}%f${git_info:+${(e)git_info[prompt]}}%(!. %B%F{red}#%f%b.)${editor_info[keymap]} '
-  RPROMPT='${editor_info[overwrite]}%(?:: %F{red}⏎%f)${VIM:+" %B%F{green}V%f%b"}${git_info[rprompt]}'
+#  PROMPT='%F{cyan}${_prompt_bryan792_pwd}%f${git_info:+${(e)git_info[prompt]}}%(!. %B%F{red}#%f%b.)${editor_info[keymap]} '
+#  RPROMPT='${editor_info[overwrite]}%(?:: %F{red}⏎%f)${VIM:+" %B%F{green}V%f%b"}${git_info[rprompt]}'
+  
+  PROMPT='%F{magenta}%n%F{default}@%F{yellow}$(box_name)%F{default}%F{white}$ '
+  RPROMPT='%F{cyan}${__prompt_bryan792_pwd} %f$(git_super_status) %(!. %B%F{red}#%f%b.)'
+  
   SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
-  PROMPT='%F{magenta}%n@%F{red}$(box_name)$%F{white}'
-  RPROMPT='%F{white}${_prompt_bryan792_pwd}'
 }
 
 prompt_bryan792_setup "$@"

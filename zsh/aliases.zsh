@@ -42,7 +42,33 @@ alias ls="command ls ${colorflag}"
 export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
 
 # Enable aliases to be sudo’ed
-alias sudo='sudo '
+#alias sudo='sudo '
+alias sudo='noglob do_sudo '
+function do_sudo
+{
+    integer glob=1
+    local -a run
+    run=( command sudo )
+    if [[ $# -gt 1 && $1 = -u ]]; then
+        run+=($1 $2)
+        shift ; shift
+    fi
+    (($# == 0)) && 1=/bin/zsh
+    while (($#)); do
+        case "$1" in
+        command|exec|-) shift; break ;;
+        nocorrect) shift ;;
+        noglob) glob=0; shift ;;
+        *) break ;;
+        esac
+    done
+    if ((glob)); then
+        PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH" $run $~==*
+    else
+        PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH" $run $==*
+    fi
+}
+
 alias sins='sudo apt-get install'
 alias upgrade='sudo apt-get -y update && sudo apt-get -y upgrade'
 
@@ -108,26 +134,36 @@ fi
 
 #gitcd
 _git_cd() {
-  if [[ "$1" != "" ]]; then
-    cd "$@"
-  else
-    local OUTPUT
-    OUTPUT="$(git rev-parse --show-toplevel 2>/dev/null)"
-    if [[ -e "$OUTPUT" ]]; then
-      if [[ "$OUTPUT" != "$(pwd)" ]]; then
-        cd "$OUTPUT"
-      else
-        cd
-      fi
+  if [[ "$1" != "" ]]; 
+  then
+    builtin cd "$@"
+  elif [[ -e "$GIT_ROOT" ]]; 
+  then
+    if [[ "$PWD" != "$GIT_ROOT" ]];
+    then
+    builtin cd $GIT_ROOT
     else
-      cd 
+    builtin cd
     fi
+      #if [[ "$OUTPUT" != "$(pwd)" ]]; then
+      #  cd "$OUTPUT"
+     # else
+     #   cd
+     # fi
+  else
+    builtin cd 
   fi
 }
 
+_gcd()
+{
+  echo $GIT_ROOT
+}
+
+alias gcd=_git_cd
 alias cd=_git_cd
 
-cd () {
+__cd () {
   if [[ -f "$1" ]]; then
     builtin cd $(dirname "$1")
   elif [[ "$1" == "" ]]; then

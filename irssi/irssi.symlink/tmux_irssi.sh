@@ -3,8 +3,8 @@
 T3=$(pidof irssi)
 
 irssi_nickpane() {
-    tmux setw main-pane-width $(( $(tput cols) - 21));
-    tmux splitw -v "cat ~/.irssi/nicklistfifo";
+    tmux setw main-pane-width $(( 168 - 25));
+    tmux splitw -v "cut -c -25 ~/.irssi/nicklistfifo";
     tmux selectl main-vertical;
     tmux selectw -t irssi;
     tmux selectp -t 0;

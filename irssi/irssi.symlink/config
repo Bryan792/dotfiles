@@ -47,6 +47,14 @@ servers = (
     use_ssl = "no";
     ssl_verify = "no";
     autoconnect = "yes";
+  },
+  {
+    address = "irc.frantech.ca";
+    chatnet = "buyvm";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
   }
 );
 
@@ -118,6 +126,7 @@ chatnets = {
   LinuxMintServer = { type = "IRC"; };
 
   synIRC = { type = "IRC"; };
+  buyvm = { type = "IRC"; };
 };
 
 channels = (
@@ -128,7 +137,8 @@ channels = (
   { name = "#linuxmint-chat"; chatnet = "LinuxMintServer"; },
   { name = "#linuxmint-help"; chatnet = "LinuxMintServer"; },
   { name = "#redditnzb"; chatnet = "Snoonet"; autojoin = "yes"; },
-  { name = "#nzbx"; chatnet = "synIRC"; autojoin = "yes"; }
+  { name = "#nzbx"; chatnet = "synIRC"; autojoin = "yes"; },
+  { name = "#frantech"; chatnet = "buyvm"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -304,17 +314,20 @@ settings = {
     real_name = "Bryan Ching";
     user_name = "bryan";
     nick = "Bryan792";
+    timestamp_format = "%H:%M:%S";
   };
-  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-text" = { actlist_sort = "refnum"; indent = "28"; };
   "fe-common/core" = {
     theme = "xchat";
     autolog = "yes";
     autolog_path = "~/Logs/irc/$tag_$0.%Y-%m-%d.log";
     autolog_level = "MSGS ACTIONS KICKS PUBLIC";
+    show_nickmode_empty = "yes";
+    hide_server_tags = "yes";
   };
   "perl/core/scripts" = {
-    nicklist_height = "23";
-    nicklist_width = "20";
+    nicklist_height = "35";
+    nicklist_width = "25";
     awl_display_key = "$Q%K|%n$H$C$S";
     nicklist_automode = "fifo";
   };
@@ -339,12 +352,11 @@ ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#nzbx" ); }
 );
 windows = {
-  1 = {
+  1 = { 
     immortal = "yes";
     name = "(status)";
     level = "ALL";
     sticky = "yes";
-    parent = "6";
   };
   2 = { name = "hilight"; sticky = "yes"; };
   3 = {
@@ -357,7 +369,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "6";
+    parent = "1";
   };
   4 = {
     items = (
@@ -369,7 +381,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "6";
+    parent = "1";
   };
   5 = {
     items = (
@@ -381,7 +393,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "6";
+    parent = "1";
   };
   6 = {
     items = (
@@ -393,9 +405,20 @@ windows = {
       }
     );
     sticky = "yes";
+    parent = "1";
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#frantech";
+        tag = "buyvm";
+      }
+    );
   };
 };
 mainwindows = {
-  6 = { first_line = "8"; lines = "31"; };
-  2 = { first_line = "1"; lines = "7"; };
+  1 = { first_line = "7"; lines = "25"; };
+  2 = { first_line = "1"; lines = "6"; };
 };
