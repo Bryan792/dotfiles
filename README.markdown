@@ -1,5 +1,8 @@
 # bryan792 : dotfiles
 
+## Bryan792 Intro
+My setup of dotfiles forked from forks of forks.
+
 ## Intro
 These are the dotfiles I am using (on Linux!). Expect modifications to continue
 to these files. These dotfile projects (in general) are pieced together
