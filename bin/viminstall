@@ -1,0 +1,23 @@
+# Get the compile-dependencies of vim
+sudo apt-get build-dep vim
+sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev
+# If you haven't got mercurial, get it
+# Get the source
+git clone git://github.com/b4winckler/vim.git
+# Compile it
+cd vim
+./configure \
+    --enable-perlinterp=dynamic \
+    --enable-pythoninterp=dynamic \
+    --with-python-config-dir=/usr/lib/python2.7/config
+    --enable-rubyinterp=dynamic \
+    --enable-cscope \
+    --enable-gui=auto \
+    --enable-gtk2-check \
+    --enable-gnome-check \
+    --with-features=huge \
+    --with-x \
+    --with-compiledby="Your Name <youremail@domain.com>" 
+make && sudo make install
+cd ..
+rm -rf vim
