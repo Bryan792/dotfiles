@@ -1,0 +1,46 @@
+# shortcut to this dotfiles path is $ZSH
+#export TERM=screen-256color
+#export ZSH=$HOME/.oh-my-zsh
+export DOTFILES=$HOME/.dotfiles
+export CLASS=$HOME/Dropbox/cpe
+
+if [ "$TERM" = "xterm" ]; then
+export TERM='xterm-256color'
+fi
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/workspace
+
+# source every .zsh file in this rep
+# for config_file (`ls $DOTFILES/**/*.zsh | grep -v zprezto`) source $config_file
+for config_file (`ls $DOTFILES/**/*.zsh | grep -v zprezto|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"  `) source $config_file
+
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+autoload -U zsh-mime-setup
+zsh-mime-setup
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion after autocomplete loads
+ for config_file ($DOTFILES/**/completion.sh) source $config_file
+
+# start oh-my-zsh
+# ZSH_THEME="mortalscumbag"
+# plugins=(git)
+# source $HOME/.zprezto/runcoms/zshrc
+# System info at start of every terminal
+# screenfetch
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+eval `dircolors ~/.dircolors`

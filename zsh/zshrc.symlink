@@ -11,7 +11,7 @@ fi
 export PROJECTS=~/workspace
 
 # source every .zsh file in this rep
-# for config_file (`ls $DOTFILES/**/*.zsh | grep -v zprezto`) source $config_file
+for config_file (`ls $DOTFILES/**/*.zsh | grep -v zprezto`) source $config_file
 for config_file (`ls $DOTFILES/**/*.zsh | grep -v zprezto|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"  `) source $config_file
 
 # use .localrc for SUPER SECRET CRAP that you don't
@@ -29,7 +29,7 @@ autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
- for config_file ($DOTFILES/**/completion.sh) source $config_file
+ #for config_file ($DOTFILES/**/completion.sh) source $config_file
 
 # start oh-my-zsh
 # ZSH_THEME="mortalscumbag"
@@ -43,4 +43,4 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-eval `dircolors ~/.dircolors`
+#eval `dircolors ~/.dircolors`
