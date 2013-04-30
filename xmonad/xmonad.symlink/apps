@@ -1,0 +1,14 @@
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/arch.xbm)^fg() term:urxvt
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/fs_01.xbm)^fg() www:chromium
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/diskette.xbm)^fg() pdf:zathura
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/plug.xbm)^fg() doc:lowriter
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/stop.xbm)^fg() xls:localc
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/ac.xbm)^fg() ppt:loimpress
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/fox.xbm)^fg() gimp:gimp
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/note.xbm)^fg() ario:ario
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/mem.xbm)^fg() matlab:urxvt -e matlab -nodesktop -nosplash
+----------
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/play.xbm)^fg() run:gmrun
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/full.xbm)^fg() suspend:systemctl suspend
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/half.xbm)^fg() restart:systemctl reboot
+ ^fg(#AADB0F)^i(/home/bryan/.dzen/empty.xbm)^fg() shutdown:systemctl poweroff
