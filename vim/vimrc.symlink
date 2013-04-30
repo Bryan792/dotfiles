@@ -28,7 +28,6 @@ filetype off
 	Bundle 'chriskempson/vim-tomorrow-theme'
 	Bundle 'tpope/vim-surround'
 	Bundle 'tpope/vim-fugitive'
-	Bundle 'Lokaltog/vim-powerline'
 "	Bundle 'Shougo/unite.vim'
 	Bundle 'scrooloose/syntastic'
 	Bundle 'Shougo/vimproc'
@@ -138,8 +137,8 @@ set title
 colorscheme Tomorrow-Night-Eighties
 "set background=dark
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
 
 set nobackup
 set nowb
@@ -206,5 +205,24 @@ noremap <F7> :Autoformat<CR><CR>
 let g:formatprg_args_expr_c = '"--style=allman --add-brackets --indent=spaces=2 --break-blocks --pad-oper --convert-tabs --delete-empty-lines --quiet"' 
 let g:formatprg_args_expr_cpp = '"--style=allman --add-brackets --indent=spaces=2 --break-blocks --pad-oper --convert-tabs --delete-empty-lines --quiet"' 
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimMavenPomClasspathUpdate = 0
+let g:Powerline_symbols = 'unicode'
+
+function! GenerateUnicode(first, last)
+  let i = a:first
+  while i <= a:last
+    if (i%256 == 0)
+      $put ='----------------------------------------------------'
+      $put ='     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F '
+      $put ='----------------------------------------------------'
+    endif
+    let c = printf('%04X ', i)
+    for j in range(16)
+      let c = c . nr2char(i) . ' '
+      let i += 1
+    endfor
+    $put =c
+  endwhile
+endfunction

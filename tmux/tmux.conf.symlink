@@ -4,7 +4,7 @@ set-option -g set-titles-string '#H:#S.#I.#P #W #T' # window number,program name
 set-option -g mouse-select-pane on
 set-option -g mouse-select-window on
 set-window-option -g mode-mouse on
-set-option -g default-shell /usr/bin/zsh
+#set-option -g default-shell /usr/bin/zsh
 bind-key | split-window -h
 bind-key - split-window -v
 
@@ -83,8 +83,8 @@ unbind w
 bind w list-windows
 
 # quit \ 
-unbind \
-bind \ confirm-before "kill-server"
+#unbind \
+#bind \ confirm-before "kill-server"
 
 # kill K k 
 unbind K

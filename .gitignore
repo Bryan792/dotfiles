@@ -1,2 +1,14 @@
 vim/vim.symlink/.netrwhist
 git/gitconfig.symlink
+
+### /home/bryan/.gitignore-boilerplates/Haskell.gitignore
+
+dist
+cabal-dev
+*.o
+*.hi
+*.chi
+*.chs.h
+.virthualenv
+
+
