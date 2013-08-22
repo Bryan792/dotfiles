@@ -204,7 +204,7 @@ noremap <F7> :Autoformat<CR><CR>
 "let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")' 
 let g:formatprg_args_expr_c = '"--style=allman --add-brackets --indent=spaces=2 --break-blocks --pad-oper --convert-tabs --delete-empty-lines --quiet"' 
 let g:formatprg_args_expr_cpp = '"--style=allman --add-brackets --indent=spaces=2 --break-blocks --pad-oper --convert-tabs --delete-empty-lines --quiet"' 
-cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+"cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimMavenPomClasspathUpdate = 0
@@ -226,3 +226,7 @@ function! GenerateUnicode(first, last)
     $put =c
   endwhile
 endfunction
+
+"cmap w!! w !sudo tee > /dev/null %
+"cmap w!! :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!

@@ -29,14 +29,16 @@ zstyle ':prezto:load' pmodule \
   'editor' \
   'archive' \
   'git' \
-  'history-substring-search' \
   'tmux' \
-  'fasd' \
+  'pacman' \
   'history' \
   'directory' \
   'spectrum' \
   'utility' \
   'completion' \
+  'fasd' \
+  'history-substring-search' \
+  'syntax-highlighting' \
   'prompt'
 
 #
@@ -68,7 +70,7 @@ zstyle ':prezto:module:editor' keymap 'vi'
 #
 
 # Set the Pacman frontend.
-# zstyle ':prezto:module:pacman' frontend 'yaourt'
+zstyle ':prezto:module:pacman' frontend 'yaourt'
 
 #
 # Prompt
@@ -109,12 +111,12 @@ zstyle ':prezto:module:prompt' theme 'bryan792'
 
 # Set syntax highlighters.
 # By default main, brackets, and cursor are enabled.
-# zstyle ':prezto:module:syntax-highlighting' highlighters \
-#   'main' \
-#   'brackets' \
-#   'pattern' \
-#   'cursor' \
-#   'root'
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+   'main' \
+   'brackets' \
+   'pattern' \
+   'cursor' \
+   'root'
 
 #
 # Terminal

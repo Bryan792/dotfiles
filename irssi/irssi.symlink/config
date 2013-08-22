@@ -1,4 +1,5 @@
 servers = (
+  { address = "irc.ubuntu.com"; chatnet = "Ubuntu"; port = "8001"; },
   { address = "eu.irc6.net"; chatnet = "IRCnet"; port = "6667"; },
   { address = "open.ircnet.net"; chatnet = "IRCnet"; port = "6667"; },
   { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
@@ -8,10 +9,11 @@ servers = (
     port = "6667";
   },
   { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  { 
+  {
     address = "irc.quakenet.org";
     chatnet = "QuakeNet";
     port = "6667";
+    autoconnect = "yes";
   },
   { address = "irc.oftc.net"; chatnet = "OFTC"; port = "6667"; },
   {
@@ -22,7 +24,46 @@ servers = (
   { address = "irc.webchat.org"; chatnet = "WebChat"; port = "6667"; },
   { address = "irc.rizon.net"; chatnet = "Rizon"; port = "6667"; },
   { address = "irc.link-net.org"; chatnet = "LinkNet"; port = "6667"; },
-  { address = "silc.silcnet.org"; chatnet = "SILC"; port = "706"; }
+  { address = "silc.silcnet.org"; chatnet = "SILC"; port = "706"; },
+  {
+    address = "irc.snoonet.org";
+    chatnet = "Snoonet";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.spotchat.org";
+    chatnet = "LinuxMintServer";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+  },
+  {
+    address = "irc.synirc.net";
+    chatnet = "synIRC";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.frantech.ca";
+    chatnet = "buyvm";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.freenode.net";
+    chatnet = "freenode";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  }
 );
 
 chatnets = {
@@ -88,11 +129,28 @@ chatnets = {
     max_whois = "30";
   };
   SILC = { type = "SILC"; };
+  Ubuntu = { type = "IRC"; };
+  Snoonet = { type = "IRC"; };
+  LinuxMintServer = { type = "IRC"; };
+
+  synIRC = { type = "IRC"; };
+  buyvm = { type = "IRC"; };
+  freenode = { type = "IRC"; };
 };
 
 channels = (
+  { name = "#kpop"; chatnet = "Snoonet"; autojoin = "yes"; },
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
-  { name = "silc"; chatnet = "silc"; autojoin = "No"; }
+  { name = "silc"; chatnet = "silc"; autojoin = "No"; },
+  { name = "#kpopflash"; chatnet = "Quakenet"; autojoin = "yes"; },
+  { name = "#linuxmint-chat"; chatnet = "LinuxMintServer"; },
+  { name = "#linuxmint-help"; chatnet = "LinuxMintServer"; },
+  { name = "#redditnzb"; chatnet = "Snoonet"; autojoin = "yes"; },
+  { name = "#nzbx"; chatnet = "synIRC"; autojoin = "yes"; },
+  { name = "#frantech"; chatnet = "buyvm"; autojoin = "yes"; },
+  { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#haskell"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#xmonad"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -261,13 +319,125 @@ statusbar = {
         barend = { priority = "100"; alignment = "right"; };
       };
     };
+    awl_1 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_1 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 settings = {
-  core = { real_name = "Unknown"; user_name = "bryan"; nick = "bryan"; };
-  "fe-text" = { actlist_sort = "refnum"; };
-  "perl/core/scripts" = { nicklist_width = "12"; nicklist_height = "65"; };
+  core = {
+    real_name = "Bryan Ching";
+    user_name = "bryan";
+    nick = "Bryan792";
+    timestamp_format = "%H:%M:%S";
+  };
+  "fe-text" = { actlist_sort = "refnum"; indent = "28"; };
+  "fe-common/core" = {
+    theme = "xchat";
+    autolog = "yes";
+    autolog_path = "~/Logs/irc/$tag_$0.%Y-%m-%d.log";
+    autolog_level = "MSGS ACTIONS KICKS PUBLIC";
+    show_nickmode_empty = "yes";
+    hide_server_tags = "yes";
+  };
+  "perl/core/scripts" = {
+    nicklist_height = "55";
+    nicklist_width = "25";
+    awl_display_key = "$Q%K|%n$H$C$S";
+    nicklist_automode = "fifo";
+  };
 };
-keyboard = ( 
-  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; }
+logs = { };
+hilights = ( { text = "bryan792"; nick = "yes"; word = "yes"; } );
+keyboard = (
+  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; },
+  { key = "meta-next"; id = "command"; data = "nicklist scroll +10"; },
+  { key = "meta-prior"; id = "command"; data = "nicklist scroll -10"; }
 );
+ignores = (
+  { 
+    mask = "JOINS";
+    level = "PARTS QUITS NICKS";
+    channels = ( "#nzbx" );
+  },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#nzbx" ); },
+  {
+    level = "JOINS PARTS QUITS NICKS";
+    channels = ( "#nzbx", "#archlinux", "#frantech", "#haskell", "#xmonad" );
+  }
+);
+windows = {
+  1 = { 
+    immortal = "yes";
+    name = "(status)";
+    level = "ALL";
+    sticky = "yes";
+  };
+  2 = { name = "hilight"; sticky = "yes"; };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#kpopflash";
+        tag = "QuakeNet";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#kpop";
+        tag = "Snoonet";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#redditnzb";
+        tag = "Snoonet";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#nzbx";
+        tag = "synIRC";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#frantech";
+        tag = "buyvm";
+      }
+    );
+  };
+};
+mainwindows = {
+  1 = { first_line = "7"; lines = "25"; };
+  2 = { first_line = "1"; lines = "6"; };
+};
