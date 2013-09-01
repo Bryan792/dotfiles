@@ -70,7 +70,7 @@ function do_sudo
 }
 
 alias sins='sudo apt-get install'
-alias upgrade='sudo apt-get -y update && sudo apt-get -y upgrade'
+alias upgrade='sudo apt-get -y update ; sudo apt-get -y upgrade'
 
 # Gzip-enabled `curl`
 alias gurl="curl --compressed"
