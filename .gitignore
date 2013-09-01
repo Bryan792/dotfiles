@@ -10,5 +10,4 @@ cabal-dev
 *.chi
 *.chs.h
 .virthualenv
-
-
+vim/vim.symlink/bundle/*
