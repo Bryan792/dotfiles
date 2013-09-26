@@ -122,6 +122,7 @@ myLogHook h = dynamicLogWithPP ( defaultPP
 	{
 		  ppCurrent		= dzenColor color9 background .	pad
 		, ppVisible		= dzenColor color6 background . 	pad
+	  , ppUrgent = dzenColor "#FF0000" "" . wrap "*" "*"
 		, ppHidden		= dzenColor color6 background . 	pad
 		, ppHiddenNoWindows	= dzenColor color0 background .	pad
 		, ppWsSep		= ""
@@ -160,7 +161,7 @@ main = do
   xmproc    <- spawnPipe "tint2 -c /home/bryan/.config/tint2/xmonad.tint2rc"
 --  conky     <- spawn myConky
 --  dzenStartMenu <- spawnPipe myStartMenu
-  xmonad $ ewmh defaultConfig
+  xmonad $ withUrgencyHook NoUrgencyHook $ ewmh defaultConfig
     { terminal    = myTerminal
     , borderWidth   = 2
     , normalBorderColor   = background
