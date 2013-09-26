@@ -39,6 +39,8 @@ filetype off
   Bundle 'Chiel92/vim-autoformat'
   Bundle 'airblade/vim-gitgutter' 
   Bundle 'Valloric/YouCompleteMe'
+  Bundle 'einars/js-beautify'
+  Bundle 'maksimr/vim-jsbeautify'
   "...All your other bundles...
     if iCanHazVundle == 0
         echo "Installing Bundles, please ignore key map error messages"
