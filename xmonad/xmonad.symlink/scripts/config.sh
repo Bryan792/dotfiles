@@ -11,6 +11,7 @@ XOFFSET=554
 if [[ -z `xrandr | grep " connected" | grep 'VGA'` ]]; then
 	XOFFSET="0"
 fi
+XOFFSET=554
 
 #FONT="-artwiz-lime-medium-r-normal-*-10-110-75-75-m-50-iso8859-*"
 FONT="-artwiz-limey-medium-r-normal-*-10-110-75-75-m-50-iso8859-*"
