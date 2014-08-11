@@ -7,58 +7,64 @@ set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
 filetype off
 
 " Setting up Vundle - the vim plugin bundler
-    let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-    if !filereadable(vundle_readme)
-        echo "Installing Vundle.."
-        echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-        let iCanHazVundle=0
-    endif
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-    Bundle 'gmarik/vundle'
-    "Add your bundles here
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+  let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+"Add your bundles here
 "    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 "    Bundle 'altercation/vim-colors-solarized'
-	" T-H-E colorscheme
+" T-H-E colorscheme
 "    Bundle 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
-	Bundle 'flazz/vim-colorschemes'
-	Bundle 'chriskempson/vim-tomorrow-theme'
-	Bundle 'tpope/vim-surround'
-	Bundle 'tpope/vim-fugitive'
-"	Bundle 'Shougo/unite.vim'
-	Bundle 'scrooloose/syntastic'
-	Bundle 'Shougo/vimproc'
-"	Bundle 'Shougo/vimshell'
-	Bundle 'scrooloose/nerdtree'
-  Bundle 'nathanaelkane/vim-indent-guides'
-"	Bundle 'mileszs/ack.vim'
-  Bundle 'jcf/vim-latex'
-  Bundle 'Chiel92/vim-autoformat'
-  Bundle 'airblade/vim-gitgutter' 
-  Bundle 'Valloric/YouCompleteMe'
-  Bundle 'einars/js-beautify'
-  Bundle 'maksimr/vim-jsbeautify'
-  Bundle 'marijnh/tern_for_vim'
-  "...All your other bundles...
-    if iCanHazVundle == 0
-        echo "Installing Bundles, please ignore key map error messages"
-        echo ""
-        :BundleInstall
-    endif
+Bundle 'flazz/vim-colorschemes'
+Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'chriskempson/base16-vim'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fugitive'
+" Bundle 'Shougo/unite.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/vimproc'
+" Bundle 'Shougo/vimshell'
+Bundle 'scrooloose/nerdtree'
+Bundle 'nathanaelkane/vim-indent-guides'
+" Bundle 'mileszs/ack.vim'
+Bundle 'jcf/vim-latex'
+Bundle 'Chiel92/vim-autoformat'
+Bundle 'airblade/vim-gitgutter' 
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'einars/js-beautify'
+Bundle 'maksimr/vim-jsbeautify'
+Bundle 'marijnh/tern_for_vim'
+"Bundle 'Yggdroot/indentLine'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'xuhdev/vim-latex-live-preview'
+Bundle 'kien/ctrlp.vim'
+"...All your other bundles...
+"
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :BundleInstall
+endif
 " Setting up Vundle - the vim plugin bundler end
 
- "
- " Brief help
- " :BundleList          - list configured bundles
- " :BundleInstall(!)    - install(update) bundles
- " :BundleSearch(!) foo - search(or refresh cache first) for foo
- " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
- "
- " see :h vundle for more details or wiki for FAQ
- " NOTE: comments after Bundle command are not allowed..
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
 
 
 syntax on
@@ -84,7 +90,7 @@ set formatoptions+=n       " support for numbered/bullet lists
 "set textwidth=80           " wrap at 80 chars by default
 set textwidth=0           " wrap at 80 chars by default nope
 set virtualedit=block      " allow virtual edit in visual block ..
-"	Messes with tab to spaces, needed so that no newline at EOF
+" Messes with tab to spaces, needed so that no newline at EOF
 "set binary
 "set noeol
 "set paste
@@ -182,16 +188,17 @@ set encoding=utf-8 nobomb
 " ---------------------------------------------------------------------------
 
 function! StripWhitespace ()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
 
 let g:indent_guides_guide_size = 1
 let g:tex_flavor='latex'
+let g:Tex_DefaultTargetFormat='pdf'
 set grepprg=grep\ -nH\ $*
 
 set autoindent             " automatic indent new lines
@@ -233,3 +240,32 @@ endfunction
 "cmap w!! w !sudo tee > /dev/null %
 "cmap w!! :execute ':silent w !sudo tee % > /dev/null' | :edit!
 command WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
+
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+
+let g:formatprg_cuda = "astyle" 
+let g:formatprg_args_expr_cuda = g:formatprg_args_expr_c 
+
+set undofile                " So is persistent undo ...
+set undodir=$home/.vim/undo
+set undolevels=1000         " Maximum number of changes that can be undone
+set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+hi clear SpellBad
+hi SpellBad cterm=bold,italic ctermfg=red

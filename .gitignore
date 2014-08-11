@@ -11,3 +11,4 @@ cabal-dev
 *.chs.h
 .virthualenv
 vim/vim.symlink/bundle/*
+undo/

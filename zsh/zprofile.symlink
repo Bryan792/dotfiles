@@ -4,4 +4,4 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-export $PANEL_FIFO="/tmp/bspwm-fifo"
+#export $PANEL_FIFO="/tmp/bspwm-fifo"

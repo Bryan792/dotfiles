@@ -43,5 +43,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-eval "$(fasd --init auto)"
-#eval `dircolors ~/.dircolors`
+if (( $+commands[fasd] )) ; then
+  eval "$(fasd --init auto)"
+fi
+eval `dircolors /home/bryan/Projects/dircolors-solarized/dircolors.ansi-universal`

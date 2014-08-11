@@ -98,8 +98,8 @@ if [[ -d "$TMPDIR" ]]; then
   fi
 fi
 
-export PANEL_FIFO="/tmp/panel-fifo"
+#export PANEL_FIFO="/tmp/panel-fifo"
 export PATH=$PATH:/home/bryan/scripts
-export XDG_CONFIG_HOME="/home/bryan/.config"
-export BSPWM_SOCKET="/tmp/bspwm-socket"
+#export XDG_CONFIG_HOME="/home/bryan/.config"
+#export BSPWM_SOCKET="/tmp/bspwm-socket"
 

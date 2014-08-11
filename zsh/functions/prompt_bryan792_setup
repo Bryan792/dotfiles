@@ -18,7 +18,7 @@ function prompt_bryan792_pwd {
    __prompt_bryan792_pwd=$pwd
   
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    _prompt_bryan792_ssh="SSH"
+    _prompt_bryan792_ssh="%B%F{red}(SSH) "
   fi
 }
 
