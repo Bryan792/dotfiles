@@ -47,3 +47,6 @@ if (( $+commands[fasd] )) ; then
   eval "$(fasd --init auto)"
 fi
 eval `dircolors /home/bryan/Projects/dircolors-solarized/dircolors.ansi-universal`
+
+alias grep="/usr/bin/grep $GREP_OPTIONS"
+unset GREP_OPTIONS
