@@ -72,7 +72,7 @@ function prompt_bryan792_setup {
 #  RPROMPT='${editor_info[overwrite]}%(?:: %F{red}⏎%f)${VIM:+" %B%F{green}V%f%b"}${git_info[rprompt]}'
   
   PROMPT='${_prompt_bryan792_ssh}%F{magenta}%n%F{default}@%F{yellow}$(box_name)%F{default}%F{white}$ '
-  RPROMPT='%F{cyan}${__prompt_bryan792_pwd} %(!. %B%F{red}#%f%b.)'
+  RPROMPT='%F{cyan}${__prompt_bryan792_pwd} %f$(git_super_status) %(!. %B%F{red}#%f%b.)'
   
   SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 }
