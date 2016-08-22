@@ -50,3 +50,5 @@ eval `dircolors $DOTFILES/zsh/dircolors-solarized/dircolors.ansi-universal`
 
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
+
+ZSH_THEME_GIT_PROMPT_CACHE=1
