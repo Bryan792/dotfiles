@@ -18,35 +18,37 @@ if !filereadable(vundle_readme)
 endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle 'gmarik/vundle'
-"Add your bundles here
-"    Bundle 'Syntastic' "uber awesome syntax and errors highlighter
-"    Bundle 'altercation/vim-colors-solarized'
+Plugin 'gmarik/vundle'
+"Add your Plugins here
+"    Plugin 'Syntastic' "uber awesome syntax and errors highlighter
+"    Plugin 'altercation/vim-colors-solarized'
 " T-H-E colorscheme
-"    Bundle 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
-Bundle 'flazz/vim-colorschemes'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'chriskempson/base16-vim'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-" Bundle 'Shougo/unite.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/vimproc'
-" Bundle 'Shougo/vimshell'
-Bundle 'scrooloose/nerdtree'
-Bundle 'nathanaelkane/vim-indent-guides'
-" Bundle 'mileszs/ack.vim'
-Bundle 'jcf/vim-latex'
-Bundle 'Chiel92/vim-autoformat'
-Bundle 'airblade/vim-gitgutter' 
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'einars/js-beautify'
-Bundle 'maksimr/vim-jsbeautify'
-Bundle 'marijnh/tern_for_vim'
-"Bundle 'Yggdroot/indentLine'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'xuhdev/vim-latex-live-preview'
-Bundle 'kien/ctrlp.vim'
+"    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
+Plugin 'flazz/vim-colorschemes'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'chriskempson/base16-vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+" Plugin 'Shougo/unite.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'Shougo/vimproc'
+" Plugin 'Shougo/vimshell'
+Plugin 'scrooloose/nerdtree'
+Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'mileszs/ack.vim'
+Plugin 'jcf/vim-latex'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'airblade/vim-gitgutter' 
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'einars/js-beautify'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'marijnh/tern_for_vim'
+"Plugin 'Yggdroot/indentLine'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'kien/ctrlp.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 "...All your other bundles...
 "
 if iCanHazVundle == 0
@@ -209,11 +211,21 @@ set showmode
 
 map <C-n> :NERDTreeToggle<CR>
 
+noremap <F8> :Autoformat<CR><CR>
 noremap <F7> :Autoformat<CR><CR>
 
 "let g:formatprg_args_expr_cs = '"--mode=cs --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")' 
 let g:formatprg_args_expr_c = '"--style=allman --add-brackets --indent=spaces=2 --break-blocks --pad-oper --convert-tabs --delete-empty-lines --quiet"' 
 let g:formatprg_args_expr_cpp = '"--style=allman --add-brackets --indent=spaces=2 --break-blocks --pad-oper --convert-tabs --delete-empty-lines --quiet"' 
+
+let g:formatdef_esformatter = '"esformatter"'
+let g:formatters_javascript = [
+								\ 'esformatter',
+                \ 'jsbeautify_javascript',
+                \ 'pyjsbeautify_javascript',
+                \ 'jscs'
+                \ ]
+
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
 let g:EclimCompletionMethod = 'omnifunc'
@@ -250,8 +262,20 @@ hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 let g:formatprg_cuda = "astyle" 
 let g:formatprg_args_expr_cuda = g:formatprg_args_expr_c 
 
-set undofile                " So is persistent undo ...
-set undodir=$home/.vim/undo
+" Put plugins and dictionaries in this dir (also on Windows)
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
+
+" Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let myUndoDir = expand(vimDir . '/undodir')
+    " Create dirs
+    call system('mkdir ' . vimDir)
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+endif
+
 set undolevels=1000         " Maximum number of changes that can be undone
 set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 
@@ -269,3 +293,7 @@ augroup END
 
 hi clear SpellBad
 hi SpellBad cterm=bold,italic ctermfg=red
+
+let g:jsx_ext_required = 0
+let g:syntastic_javascript_checkers = ['eslint']
+set list
