@@ -6,57 +6,60 @@ set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
 
 filetype off
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-  let iCanHazVundle=0
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Plugin 'gmarik/vundle'
-"Add your Plugins here
-"    Plugin 'Syntastic' "uber awesome syntax and errors highlighter
-"    Plugin 'altercation/vim-colors-solarized'
-" T-H-E colorscheme
-"    Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
-Plugin 'flazz/vim-colorschemes'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'chriskempson/base16-vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-" Plugin 'Shougo/unite.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/vimproc'
-" Plugin 'Shougo/vimshell'
-Plugin 'scrooloose/nerdtree'
-Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'mileszs/ack.vim'
-Plugin 'jcf/vim-latex'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'airblade/vim-gitgutter' 
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'einars/js-beautify'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'marijnh/tern_for_vim'
-"Plugin 'Yggdroot/indentLine'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'xuhdev/vim-latex-live-preview'
-Plugin 'kien/ctrlp.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-"...All your other bundles...
-"
-if iCanHazVundle == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
-  :BundleInstall
+
+call plug#begin('~/.vim/plugged')
+Plug 'flazz/vim-colorschemes'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'chriskempson/base16-vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+" Plug 'Shougo/unite.vim'
+"Plug 'scrooloose/syntastic'
+Plug 'neomake/neomake'
+Plug 'Shougo/vimproc'
+" Plug 'Shougo/vimshell'
+Plug 'scrooloose/nerdtree'
+Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'mileszs/ack.vim'
+Plug 'jcf/vim-latex'
+Plug 'Chiel92/vim-autoformat'
+Plug 'airblade/vim-gitgutter' 
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+else
+  Plug 'Valloric/YouCompleteMe'
 endif
-" Setting up Vundle - the vim plugin bundler end
+"Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+" ES2015 code snippets (Optional)
+Plug 'epilande/vim-es2015-snippets'
+" React code snippets
+Plug 'epilande/vim-react-snippets'
+
+Plug 'einars/js-beautify'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+"Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/nerdcommenter'
+Plug 'xuhdev/vim-latex-live-preview'
+Plug 'kien/ctrlp.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'junegunn/vim-easy-align'
+"Plug 'elzr/vim-json'
+Plug 'fleischie/vim-styled-components'
+Plug 'suan/vim-instant-markdown'
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+call plug#end()
+
+
 
 "
 " Brief help
@@ -144,8 +147,6 @@ set shortmess=filtIoOA     " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set title
-"Set colorscheme
-colorscheme Tomorrow-Night-Eighties
 "set background=dark
 set scrolloff=3           " Start scrolling three lines before the horizontal window border
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -180,8 +181,8 @@ set modelines=4
 "set mouse=a
 set exrc
 set secure
-set esckeys
-set ttyfast
+"set esckeys
+"set ttyfast
 set gdefault
 set encoding=utf-8 nobomb
 
@@ -220,7 +221,7 @@ let g:formatprg_args_expr_cpp = '"--style=allman --add-brackets --indent=spaces=
 
 let g:formatdef_esformatter = '"esformatter"'
 let g:formatters_javascript = [
-								\ 'esformatter',
+                \ 'esformatter',
                 \ 'jsbeautify_javascript',
                 \ 'pyjsbeautify_javascript',
                 \ 'jscs'
@@ -264,13 +265,11 @@ let g:formatprg_args_expr_cuda = g:formatprg_args_expr_c
 
 " Put plugins and dictionaries in this dir (also on Windows)
 let vimDir = '$HOME/.vim'
-let &runtimepath.=','.vimDir
 
 " Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
-    let myUndoDir = expand(vimDir . '/undodir')
+    let myUndoDir = expand('/tmp/undodir')
     " Create dirs
-    call system('mkdir ' . vimDir)
     call system('mkdir ' . myUndoDir)
     let &undodir = myUndoDir
     set undofile
@@ -295,5 +294,101 @@ hi clear SpellBad
 hi SpellBad cterm=bold,italic ctermfg=red
 
 let g:jsx_ext_required = 0
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = '[ -f $(npm bin)/eslint ] && $(npm bin)/eslint'
+let g:syntastic_javascript_eslint_exec = '/bin/ls'
+
 set list
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+"Set colorscheme
+colorscheme base16-eighties
+
+let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
+
+"let g:markdown_folding = 1
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" deoplete config
+let g:deoplete#enable_at_startup = 1
+"use <tab> for completion
+function! TabWrap()
+    if pumvisible()
+        return "\<C-N>"
+    elseif strpart( getline('.'), 0, col('.') - 1 ) =~ '^\s*$'
+        return "\<tab>"
+    elseif &omnifunc !~ ''
+        return "\<C-X>\<C-O>"
+    else
+        return "\<C-N>"
+    endif
+endfunction
+
+" power tab
+imap <silent><expr><tab> TabWrap()
+
+" Enter: complete&close popup if visible (so next Enter works); else: break undo
+inoremap <silent><expr> <Cr> pumvisible() ?
+            \ deoplete#mappings#close_popup() : "<C-g>u<Cr>"
+
+" Ctrl-Space: summon FULL (synced) autocompletion
+inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
+
+" Escape: exit autocompletion, go to Normal mode
+inoremap <silent><expr> <Esc> pumvisible() ? "<C-e><Esc>" : "<Esc>"
+
+let g:deoplete#file#enable_buffer_path = 1
+
+"noremap <Up>    <Nop>
+"noremap <Down>  <Nop>
+"noremap <Left>  <Nop>
+"noremap <Right> <Nop>
+
+let g:neomake_javascript_enabled_makers = ['eslint']
+function! NeomakeESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm-which')
+    let l:eslint = split(system('npm-which eslint'))[0]
+    return 0
+  endif
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:neomake_javascript_eslint_exe = l:eslint
+endfunction
+
+autocmd FileType javascript :call NeomakeESlintChecker()
+autocmd! BufWritePost,BufReadPost * Neomake
+

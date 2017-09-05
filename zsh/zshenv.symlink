@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 #
@@ -100,6 +100,7 @@ fi
 
 #export PANEL_FIFO="/tmp/panel-fifo"
 export PATH=$PATH:/home/bryan/scripts
-#export XDG_CONFIG_HOME="/home/bryan/.config"
+export PATH=$PATH:/home/bryan/.config/scripts
+export XDG_CONFIG_HOME="/home/bryan/.config"
 #export BSPWM_SOCKET="/tmp/bspwm-socket"
 

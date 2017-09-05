@@ -1,6 +1,6 @@
-export ANDROID_HOME=/home/bryan/Downloads/android/adt-bundle-linux-x86_64/adt-bundle-linux-x86_64/sdk
+export ANDROID_HOME=/opt/android-sdk
 path=($path $ANDROID_HOME/tools $ANDROID_HOME/platform-tools /home/bryan/Downloads/sbt/bin /home/bryan/.config/bspwm/bin /home/bryan/Projects/Academic-Writing-Check) 
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
+export JAVA_HOME=/usr/lib/jvm/default/
 
 PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 

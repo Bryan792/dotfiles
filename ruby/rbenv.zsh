@@ -15,3 +15,5 @@ rbenv() {
     command rbenv "$command" "$@";;
   esac
 }
+
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
