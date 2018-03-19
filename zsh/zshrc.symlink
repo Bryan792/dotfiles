@@ -27,8 +27,8 @@ autoload -U zsh-mime-setup
 zsh-mime-setup
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+# autoload -U compinit
+# compinit
 
 # load every completion after autocomplete loads
 for config_file ($DOTFILES/**/completion.sh) source $config_file
@@ -62,4 +62,4 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 alias vim="nvim"
 alias vi="nvim"
 
-compinit
+# compinit
