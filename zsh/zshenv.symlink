@@ -102,6 +102,7 @@ fi
 #export PANEL_FIFO="/tmp/panel-fifo"
 export PATH=$PATH:/home/bryan/scripts
 export PATH=$PATH:/home/bryan/.config/scripts
+export PATH=$PATH:/home/bryan/.local/bin
 export XDG_CONFIG_HOME="/home/bryan/.config"
 #export BSPWM_SOCKET="/tmp/bspwm-socket"
 

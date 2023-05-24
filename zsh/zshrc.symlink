@@ -23,6 +23,7 @@ then
   source ~/.localrc
 fi
 
+autoload -U zmv
 autoload -U zsh-mime-setup
 zsh-mime-setup
 
@@ -63,3 +64,5 @@ alias vim="nvim"
 alias vi="nvim"
 
 # compinit
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

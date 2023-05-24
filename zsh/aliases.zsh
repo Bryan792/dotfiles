@@ -76,7 +76,7 @@ alias upgrade='sudo apt-get -y update ; sudo apt-get -y upgrade'
 alias gurl="curl --compressed"
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+#alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
 
