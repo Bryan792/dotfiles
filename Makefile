@@ -3,7 +3,7 @@ SHELL := /bin/sh
 DOTFILES := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 STOW_DIR := $(DOTFILES)/stow
 TARGET ?= $(HOME)
-PACKAGES ?= zsh starship git tmux
+PACKAGES ?= zsh starship git tmux vim neovim bash wget
 BACKUP_DIR ?= $(HOME)/.dotfiles-backups/$(shell date -u +%Y%m%dT%H%M%SZ)
 STOW_FLAGS := --dir="$(STOW_DIR)" --target="$(TARGET)" --no-folding
 PREFLIGHT := $(DOTFILES)/bin/stow-preflight

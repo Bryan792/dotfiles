@@ -18,16 +18,16 @@ could be difficult. So here is my lazy stab at it:
 - `cd ~/.dotfiles && git switch -c stow-starship-gura`
 - `sudo apt-get update && sudo apt-get install -y make stow zsh tmux curl`
 - `make dry-run`
-- `make install`
+- `make install BACKUP=1`
 - `make bootstrap-zim`
 - `make bootstrap-starship`
 - `make bootstrap-git-identity`
 
-GNU Stow links the default terminal profile (`zsh`, `starship`, `git`, and
-`tmux`) from `stow/` into the home directory. Stow is always run with
-`--no-folding`, so shared directories such as `.config` remain real
-directories. Neovim is available as an opt-in package but is not installed by
-the default profile.
+GNU Stow links the default terminal profile (`zsh`, `starship`, `git`, `tmux`,
+`vim`, `neovim`, `bash`, and `wget`) from `stow/` into the home directory.
+Stow is always run with `--no-folding`, so shared directories such as `.config`
+remain real directories. The Neovim configuration is linked, but the Neovim
+binary and editor plugins remain deferred.
 
 The complete legacy mapping is in
 [`docs/legacy-stow-migration.md`](docs/legacy-stow-migration.md). It records
@@ -67,8 +67,8 @@ There's a few special files in the hierarchy.
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
 - **stow/**: Explicit packages whose paths mirror destinations under `$HOME`.
-- **stow/neovim/**: A deferred Neovim entrypoint; deploy it later with
-  `make install PACKAGES=neovim` after installing Neovim and its runtimes.
+- **stow/neovim/**: The Neovim entrypoint, linked with the default profile. It
+  can be used after Neovim and its plugins are installed.
 
 Momo should migrate its old links separately with the same dry-run and backup
 process. This checkout does not modify Momo.

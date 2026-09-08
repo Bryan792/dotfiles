@@ -11,19 +11,19 @@ From a fresh checkout at `/home/bryan/.dotfiles`:
 sudo apt-get update
 sudo apt-get install -y make stow zsh tmux curl
 make dry-run
-make install
+make install BACKUP=1
 make bootstrap-zim
 make bootstrap-starship
 make bootstrap-git-identity
 ```
 
-The default packages are `zsh starship git tmux`. The complete legacy mapping
-and optional package dependencies are in
+The default packages are `zsh starship git tmux vim neovim bash wget`. The
+complete legacy mapping and remaining optional package dependencies are in
 [`legacy-stow-migration.md`](legacy-stow-migration.md). Use
-`PACKAGES="zsh starship git tmux vim neovim"` only after installing the
-deferred editors and their plugins. `TARGET=/path/to/test-home make dry-run`
-and the corresponding `install`, `restow`, and `uninstall` commands exercise a
-temporary target.
+`TARGET=/path/to/test-home make dry-run` and the corresponding `install`,
+`restow`, and `uninstall` commands exercise a temporary target. The first
+install on a stock Ubuntu account may need `BACKUP=1` to preserve its existing
+`.bashrc`.
 
 `make install` runs `bin/stow-preflight` before Stow. Correct existing links
 are reported as no-ops. Conflicting files and unrelated links stop the
@@ -43,13 +43,15 @@ Stow's delete mode and removes managed links only.
   Bryan Ching and `bryan792@gmail.com`; it is intentionally untracked.
 - Starship config: `~/.config/starship.toml`, the unchanged standard Tokyo
   Night preset linked from `stow/starship/`.
-- No host fonts, Neovim package, editor plugins, or language runtimes were
-  installed.
+- No host fonts, Neovim binary, editor plugins, or language runtimes were
+  installed. The Vim, Neovim, Bash, and Wget configuration packages are
+  linked.
 - Remaining client-side check: confirm Tokyo Night colors and Nerd Font glyphs
   in Termius or another Nerd-Font-capable terminal.
 - Terminal-profile rollback backup: `/home/bryan/.dotfiles-backups/pre-migration-20260908T023541Z/`.
-- No Gura conflict backup was needed during deployment. Future backups use
-  the timestamped directory described above.
+- The existing Ubuntu `.bashrc` was preserved at
+  `/home/bryan/.dotfiles-backups/20260908T031439Z/home__bryan__.bashrc`.
+  Future backups use the timestamped directory described above.
 - Login shell after validation: `/usr/bin/zsh`.
 - `sshd -t`, the SSH service, and existing Docker, Tailscale, Periphery,
   containerd, and OCI agent services remained healthy. A second authenticated

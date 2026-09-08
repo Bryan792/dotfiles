@@ -46,11 +46,11 @@ linked; `bin/stow-preflight` ignores the package control file itself.
 
 ## Package selection and dependencies
 
-Gura's profile is intentionally limited to `zsh starship git tmux`:
+Gura's active profile is `zsh starship git tmux vim neovim bash wget`:
 
 ```sh
 make dry-run
-make install
+make install BACKUP=1
 make bootstrap-zim
 make bootstrap-starship
 make bootstrap-git-identity
@@ -61,16 +61,12 @@ Starship binary.  `bootstrap-zim` downloads Zim and builds its module init;
 `bootstrap-starship` installs the ARM64-compatible Starship binary into
 `~/.local/bin`; the identity include is untracked and mode `600`.
 
-Optional packages are selected explicitly:
+The active profile links the Bash, Vim, Neovim, and Wget configuration files;
+it does not install their runtimes or Vim plugins. The remaining packages are
+selected explicitly:
 
-* `bash` needs Bash; it is not installed by the default profile.
-* `vim` needs Vim.  Its original plugin tree is preserved, but plugins are
-  installed only when the user runs `vim +PlugInstall`; no editor or runtime is
-  installed by this rollout.
-* `neovim` needs Neovim and uses the shared `~/.vimrc`; deploy it only after
-  installing Neovim and its plugins with `make install PACKAGES='neovim vim'`.
-* `ruby`, `wget`, `irssi`, and `xmonad` need their corresponding programs and
-  are retained for opt-in desktop or workstation use.
+* `ruby`, `irssi`, and `xmonad` need their corresponding programs and are
+  retained for opt-in desktop or workstation use.
 
 ## Safe migration and rollback
 
