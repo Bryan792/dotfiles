@@ -44,9 +44,15 @@ Stow's delete mode and removes managed links only.
   installed.
 - No Gura conflict backup was needed during deployment. Future backups use
   the timestamped directory described above.
+- Login shell after validation: `/usr/bin/zsh`.
+- `sshd -t`, the SSH service, and existing Docker, Tailscale, Periphery,
+  containerd, and OCI agent services remained healthy. A second authenticated
+  SSH session could not be opened from this agent because no local private key
+  matches Gura's existing authorized keys; validate that from the client
+  before closing the original session.
 
-The repository branch is `stow-starship-gura`. Record the tested commit here
-after committing the rollout changes.
+The repository branch is `stow-starship-gura`. The tested rollout commit is
+`342a172`.
 
 ## Rollback
 
