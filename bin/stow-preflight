@@ -1,0 +1,101 @@
+#!/bin/sh
+set -eu
+
+stow_dir=
+target=
+backup_dir=
+
+usage() {
+	printf '%s\n' "Usage: $0 --stow-dir DIR --target DIR [--backup-dir DIR] PACKAGE..." >&2
+}
+
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		--stow-dir)
+			[ "$#" -ge 2 ] || { usage; exit 2; }
+			stow_dir=$2
+			shift 2
+			;;
+		--target)
+			[ "$#" -ge 2 ] || { usage; exit 2; }
+			target=$2
+			shift 2
+			;;
+		--backup-dir)
+			[ "$#" -ge 2 ] || { usage; exit 2; }
+			backup_dir=$2
+			shift 2
+			;;
+		-h|--help)
+			usage
+			exit 0
+			;;
+		-*)
+			printf 'Unknown option: %s\n' "$1" >&2
+			usage
+			exit 2
+			;;
+		*)
+			break
+			;;
+	esac
+done
+
+[ -n "$stow_dir" ] && [ -d "$stow_dir" ] || { printf 'Stow directory is missing: %s\n' "$stow_dir" >&2; exit 2; }
+[ -n "$target" ] && [ -d "$target" ] || { printf 'Target directory is missing: %s\n' "$target" >&2; exit 2; }
+[ "$#" -gt 0 ] || { usage; exit 2; }
+
+conflicts=$(mktemp)
+trap 'rm -f "$conflicts"' EXIT HUP INT TERM
+
+for package do
+	package_dir=$stow_dir/$package
+	[ -d "$package_dir" ] || { printf 'Package is missing: %s\n' "$package" >&2; exit 2; }
+	find "$package_dir" -type f -o -type l | while IFS= read -r source; do
+		relative=${source#"$package_dir"/}
+		destination=$target/$relative
+		ancestor=$(dirname "$destination")
+		while [ "$ancestor" != "$target" ] && [ "$ancestor" != "/" ]; do
+			if [ -L "$ancestor" ]; then
+				printf 'conflict: %s is an unrelated directory link needed by %s\n' "$ancestor" "$destination"
+				printf '%s\n' "$ancestor" >> "$conflicts"
+				break
+			fi
+			ancestor=$(dirname "$ancestor")
+		done
+		if [ -e "$destination" ] || [ -L "$destination" ]; then
+			if [ -L "$destination" ] && [ "$(readlink -f "$destination")" = "$(readlink -f "$source")" ]; then
+				printf 'ok: already linked %s\n' "$destination"
+				continue
+			fi
+			printf 'conflict: %s (wanted from %s)\n' "$destination" "$source"
+			printf '%s\n' "$destination" >> "$conflicts"
+		fi
+	done
+done
+
+if [ ! -s "$conflicts" ]; then
+	printf '%s\n' 'No Stow conflicts found.'
+	exit 0
+fi
+
+if [ -z "$backup_dir" ]; then
+	printf '%s\n' 'Refusing to change conflicting targets. Review them or rerun with BACKUP=1.' >&2
+	exit 1
+fi
+
+mkdir -p "$backup_dir"
+unique_conflicts=$(mktemp)
+sort -u "$conflicts" > "$unique_conflicts"
+while IFS= read -r destination; do
+	base=$(printf '%s' "$destination" | sed 's#^/##; s#/#__#g')
+	backup=$backup_dir/$base
+	index=0
+	while [ -e "$backup" ] || [ -L "$backup" ]; do
+		index=$((index + 1))
+		backup=$backup_dir/${base}.$index
+	done
+	mv "$destination" "$backup"
+	printf 'backup: %s -> %s\n' "$destination" "$backup"
+done < "$unique_conflicts"
+rm -f "$unique_conflicts"

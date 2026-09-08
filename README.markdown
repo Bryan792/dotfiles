@@ -14,30 +14,36 @@ could be difficult. So here is my lazy stab at it:
 
 ## install
 
-- `git clone git://github.com/bryan792/dotfiles ~/.dotfiles`
-- `cd ~/.dotfiles`
-- `rake install`
+- `git clone https://github.com/Bryan792/dotfiles.git ~/.dotfiles`
+- `cd ~/.dotfiles && git switch -c stow-starship-gura`
+- `sudo apt-get update && sudo apt-get install -y make stow zsh tmux curl`
+- `make dry-run`
+- `make install`
+- `make bootstrap-zim`
+- `make bootstrap-starship`
+- `make bootstrap-git-identity`
 
-The install rake task will symlink the appropriate files in `.dotfiles` to your
-home directory. Additionally, it will clone [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) into your home directory as `.oh-my-zsh`
-**WARNING: Currently the cloning just nukes your current ~/.oh-my-zsh if it exists**
+GNU Stow links the default terminal profile (`zsh`, `starship`, `git`, and
+`tmux`) from `stow/` into the home directory. Stow is always run with
+`--no-folding`, so shared directories such as `.config` remain real
+directories. Neovim is available as an opt-in package but is not installed by
+the default profile.
 
-Things you will want to take a glance at and tweak:
-- zsh/zshrc.symlink
-- system/\*
-- git/gitconfig.symlink.example
+Use `make dry-run` before changing a target. Existing correct links are a
+no-op; unrelated files and links are reported as conflicts. To preserve a
+conflict under a unique backup name and continue, use `make install BACKUP=1`.
+`make restow` reapplies the selected packages, and `make uninstall` removes
+only links managed by those packages.
 
 ## modify and reload
 
-- `reload!` will load any changes you have made to any of the files 
+- `reload` will load changes to the active Zsh configuration.
 
 ## topical
 
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
-files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `rake install`.
+Legacy topic files remain in the repository for reference. The active profile
+uses only the explicit packages under `stow/`; desktop and application
+configuration is not activated on Gura.
 
 ## what's inside
 
@@ -51,14 +57,12 @@ There's a few special files in the hierarchy.
 
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
-  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
-  but still keep those autoloaded files in your home directory. These get
-  symlinked in when you run `rake install`.
-- **topic/\*.completion.sh**: Any files ending in `completion.sh` get loaded
-  last so that they get loaded after we set up zsh autocomplete functions.
+- **stow/**: Explicit packages whose paths mirror destinations under `$HOME`.
+- **stow/neovim/**: A deferred Neovim entrypoint; deploy it later with
+  `make install PACKAGES=neovim` after installing Neovim and its runtimes.
+
+Momo should migrate its old links separately with the same dry-run and backup
+process. This checkout does not modify Momo.
 
 ## bugs
 

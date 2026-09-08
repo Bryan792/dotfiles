@@ -1,0 +1,14 @@
+.DS_Store
+.svn
+.tissues
+*~
+*.swp
+*.rbc
+.redcar/
+dist
+cabal-dev
+*.o
+*.hi
+*.chi
+*.chs.h
+.virthualenv

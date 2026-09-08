@@ -1,0 +1,20 @@
+# Zim modules for the portable terminal profile.
+
+zmodule environment
+zmodule git
+zmodule input
+zmodule termtitle
+zmodule utility
+
+zmodule duration-info
+zmodule git-info
+zmodule prompt-pwd
+zstyle ':zim:prompt-pwd:fish-style' dir-length 0
+# Keep steeef available as the fallback when Starship is unavailable.
+zmodule steeef
+
+zmodule zsh-users/zsh-completions --fpath src
+zmodule completion
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search
+zmodule zsh-users/zsh-autosuggestions
