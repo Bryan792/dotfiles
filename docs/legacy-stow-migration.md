@@ -87,3 +87,11 @@ Momo is not part of this rollout.  A future Momo migration should use a fresh
 checkout, inspect its existing links with `make dry-run`, choose a separate
 backup directory, and deploy only after reviewing conflicts.  Do not point the
 Gura checkout at Momo or run `--adopt` there.
+
+When migrating an existing editor installation, preserve its untracked
+`vim/vim.symlink/plugged/` directory under `~/.vim/plugged/` after replacing
+the legacy `~/.vim` link. Stow moves tracked configuration, not installed
+plugins. The Neovim entrypoint must include `~/.vim` and `~/.vim/after` in
+`runtimepath`, and `~/.vim` in `packpath`, before sourcing the shared vimrc.
+On Momo, the existing plugins were relocated this way; headless Neovim
+verified Tokyo Night, truecolor, and the Coc CursorHold callback.
