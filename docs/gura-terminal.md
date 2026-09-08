@@ -42,6 +42,8 @@ Stow's delete mode and removes managed links only.
   Night preset linked from `stow/starship/`.
 - No host fonts, Neovim package, editor plugins, or language runtimes were
   installed.
+- Remaining client-side check: confirm Tokyo Night colors and Nerd Font glyphs
+  in Termius or another Nerd-Font-capable terminal.
 - No Gura conflict backup was needed during deployment. Future backups use
   the timestamped directory described above.
 - Login shell after validation: `/usr/bin/zsh`.
