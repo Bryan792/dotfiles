@@ -14,20 +14,66 @@ could be difficult. So here is my lazy stab at it:
 
 ## install
 
-- `git clone https://github.com/Bryan792/dotfiles.git ~/.dotfiles`
-- `cd ~/.dotfiles && git switch -c stow-starship-gura`
-- `sudo apt-get update && sudo apt-get install -y make stow zsh tmux curl`
-- `make dry-run`
-- `make install BACKUP=1`
-- `make bootstrap-zim`
-- `make bootstrap-starship`
-- `make bootstrap-git-identity`
+The deployable configuration lives in `stow/`. Install from a checkout that
+contains the `stow-starship-gura` rollout branch. A fresh clone of `master` may
+still contain only the legacy installer; once the rollout branch is published,
+select it explicitly:
 
-GNU Stow links the default terminal profile (`zsh`, `starship`, `git`, `tmux`,
-`vim`, `neovim`, `bash`, and `wget`) from `stow/` into the home directory.
-Stow is always run with `--no-folding`, so shared directories such as `.config`
-remain real directories. The Neovim configuration is linked, but the Neovim
-binary and editor plugins remain deferred.
+```sh
+git clone https://github.com/Bryan792/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+git fetch origin stow-starship-gura
+git switch --track -c stow-starship-gura origin/stow-starship-gura
+```
+
+If the branch was supplied locally, use `git switch stow-starship-gura`.
+Creating an empty branch with `git switch -c stow-starship-gura` does not fetch
+the rollout commits.
+
+Install the required tools, preview the links, and bootstrap the profile:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y git make stow zsh tmux curl
+
+make dry-run
+make bootstrap BACKUP=1
+```
+
+`make bootstrap` installs the Stow links, initializes Zim, installs Starship
+under `~/.local/bin`, and creates the untracked Git identity include for Bryan
+Ching (`bryan792@gmail.com`). `BACKUP=1` preserves conflicting files under a
+timestamped directory in `~/.dotfiles-backups/`. The default package list is:
+
+```text
+zsh starship git tmux vim neovim bash wget
+```
+
+The Vim and Neovim configuration files are linked, but Neovim, Vim plugins,
+language runtimes, and fonts are not installed by this setup. Install those
+later when needed. Stow uses `--no-folding`, so shared directories such as
+`.config` remain real directories.
+
+Optional packages can be previewed and installed separately:
+
+```sh
+make dry-run PACKAGES='ruby irssi xmonad'
+make install BACKUP=1 PACKAGES='ruby irssi xmonad'
+```
+
+After installation, start a fresh shell and validate the terminal profile
+before changing the login shell. Keep the current SSH session open while
+testing and verify a second SSH session from the client:
+
+```sh
+exec zsh
+chsh -s "$(command -v zsh)"
+```
+
+Run the `chsh` command only after Zsh, completions, Starship, Git, and tmux
+work as expected. To roll back managed links, use the same package selection
+with `make uninstall`; restore any files from the recorded backup directory if
+needed. The login shell can be restored with `sudo chsh -s /bin/sh bryan`.
 
 The complete legacy mapping is in
 [`docs/legacy-stow-migration.md`](docs/legacy-stow-migration.md). It records
