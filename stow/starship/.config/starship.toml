@@ -2,6 +2,8 @@
 
 format = """
 [░▒▓](#a3aed2)\
+$username\
+$hostname\
 $os\
 [](bg:#769ff0 fg:#a3aed2)\
 $directory\
@@ -75,6 +77,17 @@ format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 style = "bg:#a3aed2 fg:#090c0c"
 format = "[ $symbol ]($style)"
 disabled = false
+
+[username]
+show_always = true
+style_user = "bg:#a3aed2 fg:#090c0c"
+style_root = "bg:#a3aed2 fg:#090c0c"
+format = "[ $user]($style)"
+
+[hostname]
+ssh_only = false
+style = "bg:#a3aed2 fg:#090c0c"
+format = "[@$hostname]($style)"
 
 [os.symbols]
 Windows = "󰍲"
