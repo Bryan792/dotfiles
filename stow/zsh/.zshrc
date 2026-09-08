@@ -179,6 +179,12 @@ done
 # offers the function's arguments instead of directories.
 setopt complete_aliases
 
+# `gcd` uses the same Git-root-aware helper as `cd`; give it the native
+# directory completer instead of falling back to unrestricted file matching.
+if (( $+functions[compdef] )); then
+  compdef _cd cd gcd
+fi
+
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
