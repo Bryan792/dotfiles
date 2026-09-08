@@ -52,7 +52,7 @@ Stow's delete mode and removes managed links only.
   before closing the original session.
 
 The repository branch is `stow-starship-gura`. The tested rollout commit is
-`342a172`.
+`75fb689`.
 
 ## Rollback
 
