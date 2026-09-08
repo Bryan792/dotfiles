@@ -172,6 +172,13 @@ for config_file in \
   _dotfiles_source "$config_file"
 done
 
+# Keep aliases intact while completion determines the command context.  The
+# migrated files are sourced through a helper function, so the legacy
+# `setopt complete_aliases` in zsh/config.zsh is local to that helper.  Without
+# restoring it here, `cd` expands to `_git_cd` before completion runs and Tab
+# offers the function's arguments instead of directories.
+setopt complete_aliases
+
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
