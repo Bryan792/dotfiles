@@ -220,11 +220,19 @@ alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
 
 ZSH_THEME_GIT_PROMPT_CACHE=1
+
+# Keep user-installed package binaries ahead of system commands.  The explicit
+# Yarn locations cover both the classic and current Yarn global layouts; the
+# resolved global directory is added below when Yarn is available.  Missing
+# directories are harmless PATH entries and become usable if created later in
+# the session.
 [[ -d "$HOME/.npm/bin" ]] && path=("$HOME/.npm/bin" $path)
+path=("$HOME/.yarn/bin" "$HOME/.config/yarn/global/node_modules/.bin" $path)
 if (( $+commands[yarn] )); then
   yarn_bin="$(yarn global bin 2>/dev/null)"
   [[ -d "$yarn_bin" ]] && path=("$yarn_bin" $path)
 fi
+path=("$HOME/.local/bin" $path)
 typeset -U path
 export PATH
 
