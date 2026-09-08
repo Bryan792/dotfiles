@@ -209,18 +209,6 @@ for config_file in git/completion.sh zsh/completion.zsh ruby/completion.zsh; do
   _dotfiles_source "$config_file"
 done
 
-# start oh-my-zsh
-# ZSH_THEME="mortalscumbag"
-# plugins=(git)
-# source $HOME/.zprezto/runcoms/zshrc
-# System info at start of every terminal
-# screenfetch
-
-# Source Prezto.
-#if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-#  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-#fi
-
 if (( $+commands[fasd] )) ; then
   eval "$(fasd --init auto)"
 fi

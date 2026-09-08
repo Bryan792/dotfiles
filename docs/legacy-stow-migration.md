@@ -37,8 +37,7 @@ The legacy topic files under `system/`, `zsh/`, `git/`, and the application
 directories remain available to `.zshrc` through deliberate, ordered loading.
 The old recursive Zsh loader and duplicate prompt entrypoints are archived so
 they cannot run twice.  The divergent top-level `.xmonad` tree, generated
-artifacts, self-referential links, and dormant Prezto content are under
-`archive/legacy-generated/` and `archive/legacy-prezto/`.
+artifacts, and self-referential links are under `archive/legacy-generated/`.
 
 The `git` and `vim` packages contain a package-local Stow ignore list.  It
 retains Stow's safety defaults while allowing the real `.gitignore` files to be

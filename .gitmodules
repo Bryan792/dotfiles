@@ -1,3 +1,0 @@
-[submodule "archive/legacy-prezto/zprezto.symlink"]
-	path = archive/legacy-prezto/zprezto.symlink
-	url = git://github.com/sorin-ionescu/prezto.git
