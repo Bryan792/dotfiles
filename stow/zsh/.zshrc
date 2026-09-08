@@ -76,7 +76,7 @@ if [[ -r "$HOME/.localrc" ]]; then
 fi
 
 # Initialize Starship last so the Zim steeef prompt cannot overwrite it.
-if (( $+commands[starship] )); then
+if (( $+commands[starship] )) && [[ ${TERM:-dumb} != dumb ]]; then
   if (( ! ${+_DOTFILES_STARSHIP_INITIALIZED} )); then
     eval "$(starship init zsh)"
     typeset -g _DOTFILES_STARSHIP_INITIALIZED=1
