@@ -29,6 +29,13 @@ GNU Stow links the default terminal profile (`zsh`, `starship`, `git`, and
 directories. Neovim is available as an opt-in package but is not installed by
 the default profile.
 
+The complete legacy mapping is in
+[`docs/legacy-stow-migration.md`](docs/legacy-stow-migration.md). It records
+the original paths, optional package dependencies, archived generated files,
+and the safe Momo migration procedure. The original Vim configuration and
+support tree are preserved under `stow/vim/`; plugin installation remains an
+explicit later step.
+
 Use `make dry-run` before changing a target. Existing correct links are a
 no-op; unrelated files and links are reported as conflicts. To preserve a
 conflict under a unique backup name and continue, use `make install BACKUP=1`.
@@ -37,13 +44,15 @@ only links managed by those packages.
 
 ## modify and reload
 
-- `reload` will load changes to the active Zsh configuration.
+- `reload` will load changes to the active Zsh configuration. The legacy
+  `reload!` alias remains available.
 
 ## topical
 
-Legacy topic files remain in the repository for reference. The active profile
-uses only the explicit packages under `stow/`; desktop and application
-configuration is not activated on Gura.
+Legacy topic files remain in the repository and are loaded once in a deliberate
+order by the migrated `.zshrc`. The active profile uses only the explicit
+packages under `stow/`; desktop and application configuration is not activated
+on Gura.
 
 ## what's inside
 

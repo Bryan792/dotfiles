@@ -126,7 +126,7 @@ alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # Use apt-fast if available
-if $(which apt-fast &>/dev/null)
+if command -v apt-fast >/dev/null 2>&1
 then
   alias apt-get="apt-fast"
   alias upgrade='sudo apt-fast -y update && sudo apt-fast -y upgrade'

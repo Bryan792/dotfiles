@@ -1,20 +1,23 @@
-# Environment shared by login, interactive, and noninteractive Zsh.
+#
+# Defines environment variables.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+#
+# Browser
+#
 
-# Ubuntu's global zshrc otherwise runs compinit before Zim's completion module.
-skip_global_compinit=1
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+fi
 
-typeset -U path PATH
-path=(
-  "$HOME/.local/bin"
-  "$HOME/bin"
-  "$DOTFILES/bin"
-  $path
-)
-export PATH
+#
+# Editors
+#
 
+export BROWSER='google-chrome-stable'
 if (( $+commands[nvim] )); then
   export EDITOR="${EDITOR:-nvim}"
   export VISUAL="${VISUAL:-nvim}"
@@ -25,6 +28,88 @@ else
   export EDITOR="${EDITOR:-vi}"
   export VISUAL="${VISUAL:-vi}"
 fi
+export PAGER='less'
 
-export PAGER="${PAGER:-less}"
-export LESS="${LESS:--F -g -i -M -R -S -w -X -z-4}"
+#
+# Language
+#
+
+if [[ -z "$LANG" ]]; then
+  eval "$(locale)"
+fi
+
+#
+# Less
+#
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+if (( $+commands[lesspipe.sh] )); then
+  export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
+fi
+
+#
+# Paths
+#
+
+typeset -gU cdpath fpath mailpath manpath path
+typeset -gUT INFOPATH infopath
+
+# Set the the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that info searches for manuals.
+infopath=(
+  /usr/local/share/info
+  /usr/share/info
+  $infopath
+)
+
+# Set the list of directories that man searches for manuals.
+manpath=(
+  /usr/local/share/man
+  /usr/share/man
+  $manpath
+)
+
+for path_file in /etc/manpaths.d/*(.N); do
+  manpath+=($(<$path_file))
+done
+unset path_file
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+  /usr/{bin,sbin}
+  /{bin,sbin}
+  $path
+)
+
+for path_file in /etc/paths.d/*(.N); do
+  path+=($(<$path_file))
+done
+unset path_file
+
+#
+# Temporary Files
+#
+
+if [[ -d "$TMPDIR" ]]; then
+  export TMPPREFIX="${TMPDIR%/}/zsh"
+  if [[ ! -d "$TMPPREFIX" ]]; then
+    mkdir -p "$TMPPREFIX"
+  fi
+fi
+
+#export PANEL_FIFO="/tmp/panel-fifo"
+export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+export PATH="$PATH:$HOME/scripts:$HOME/.config/scripts:$HOME/.local/bin:$DOTFILES/bin"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+skip_global_compinit=1
+#export BSPWM_SOCKET="/tmp/bspwm-socket"

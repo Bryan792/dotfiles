@@ -17,10 +17,13 @@ make bootstrap-starship
 make bootstrap-git-identity
 ```
 
-The default packages are `zsh starship git tmux`. Use
-`PACKAGES="zsh starship git tmux neovim"` only after installing the deferred
-Neovim runtime. `TARGET=/path/to/test-home make dry-run` and the corresponding
-`install`, `restow`, and `uninstall` commands exercise a temporary target.
+The default packages are `zsh starship git tmux`. The complete legacy mapping
+and optional package dependencies are in
+[`legacy-stow-migration.md`](legacy-stow-migration.md). Use
+`PACKAGES="zsh starship git tmux vim neovim"` only after installing the
+deferred editors and their plugins. `TARGET=/path/to/test-home make dry-run`
+and the corresponding `install`, `restow`, and `uninstall` commands exercise a
+temporary target.
 
 `make install` runs `bin/stow-preflight` before Stow. Correct existing links
 are reported as no-ops. Conflicting files and unrelated links stop the
@@ -44,6 +47,7 @@ Stow's delete mode and removes managed links only.
   installed.
 - Remaining client-side check: confirm Tokyo Night colors and Nerd Font glyphs
   in Termius or another Nerd-Font-capable terminal.
+- Terminal-profile rollback backup: `/home/bryan/.dotfiles-backups/pre-migration-20260908T023541Z/`.
 - No Gura conflict backup was needed during deployment. Future backups use
   the timestamped directory described above.
 - Login shell after validation: `/usr/bin/zsh`.
@@ -53,8 +57,17 @@ Stow's delete mode and removes managed links only.
   matches Gura's existing authorized keys; validate that from the client
   before closing the original session.
 
-The repository branch is `stow-starship-gura`. The tested rollout commit is
-`75fb689`.
+The repository branch is `stow-starship-gura`. The migration commit is the
+commit recorded by `git rev-parse HEAD` after the final validation; no commit
+is pushed or merged by this rollout.
+
+Validation covered a full optional-package dry-run and isolated install,
+restow, conflict backup, parent-link handling, uninstall, broken-link checks,
+fresh and repeated Zsh startup, missing-Starship and `TERM=dumb` fallbacks,
+Git and non-Git Starship prompts, Git identity, tmux parsing, SSH syntax, and
+the running SSH, Docker, Tailscale, Periphery, containerd, OCI agent, and
+monitoring services. Editor layout and Neovim entrypoints were checked as
+files only; editor, plugin, and runtime execution remains deferred.
 
 ## Rollback
 

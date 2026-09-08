@@ -1,4 +1,5 @@
 savepath
+if [[ "$OSTYPE" == darwin* ]] && (( $+commands[osascript] )); then
 osascript >/dev/null <<EOF
 on do_submenu(app_name, menu_name, menu_item, submenu_item)
 		-- bring the target application to the front
@@ -24,3 +25,6 @@ end do_submenu
 
 do_submenu("Terminal", "Shell", "New Tab", 1)
 EOF
+else
+  print -u2 'newtab is only available in macOS Terminal'
+fi

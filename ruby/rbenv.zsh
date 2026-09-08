@@ -1,3 +1,5 @@
+(( $+commands[rbenv] )) || return 0
+
 # rehash shims
 rbenv rehash 2>/dev/null
 
@@ -16,4 +18,6 @@ rbenv() {
   esac
 }
 
-PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+if (( $+commands[ruby] )); then
+  PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+fi

@@ -1,5 +1,7 @@
-# Login-only setup is intentionally small; .zshenv owns the portable PATH.
-
-if [[ -d "$HOME/.local/bin" ]]; then
-  path=("$HOME/.local/bin" $path)
-fi
+#
+# Executes commands at login pre-zshrc.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+#export $PANEL_FIFO="/tmp/bspwm-fifo"

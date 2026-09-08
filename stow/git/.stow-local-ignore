@@ -1,0 +1,15 @@
+# Keep Stow's safety defaults, while allowing the real ~/.gitignore to deploy.
+RCS
+.+,v
+CVS
+\.\#.+
+\.cvsignore
+\.svn
+_darcs
+\.hg
+\.git
+.+~
+\#.*\#
+^/README.*
+^/LICENSE.*
+^/COPYING

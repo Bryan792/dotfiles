@@ -1,10 +1,6 @@
-" Optional Neovim entrypoint for a later runtime/plugin migration.
-" This package is intentionally not deployed by the default terminal profile.
+" Load the shared Vim configuration when this optional package is deployed.
+" Neovim and its plugins are intentionally deferred on Gura.
 
-set number
-set expandtab
-set shiftwidth=2
-set tabstop=2
-set hidden
-syntax enable
-filetype plugin indent on
+if filereadable(expand('~/.vimrc'))
+  silent! execute 'source ' . fnameescape(expand('~/.vimrc'))
+endif

@@ -7,10 +7,13 @@ set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
 filetype off
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  if executable('curl')
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  endif
 endif
+
+" Plugin installation is explicit: :PlugInstall (or vim +PlugInstall +qall).
 
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'
@@ -142,7 +145,9 @@ inoremap <Up> <C-o>gk
 "  UI
 " ----------------------------------------------------------------------------
 
-set t_Co=256              " enable 256-color mode.
+if !has('nvim')
+  set t_Co=256             " enable 256-color mode.
+endif
 set hidden
 set ruler                  " show the cursor position all the time
 set showcmd                " display incomplete commands

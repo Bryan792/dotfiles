@@ -5,6 +5,8 @@
 *.swp
 *.rbc
 .redcar/
+### ~/.gitignore-boilerplates/Haskell.gitignore
+
 dist
 cabal-dev
 *.o

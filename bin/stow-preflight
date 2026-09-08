@@ -51,18 +51,25 @@ trap 'rm -f "$conflicts"' EXIT HUP INT TERM
 for package do
 	package_dir=$stow_dir/$package
 	[ -d "$package_dir" ] || { printf 'Package is missing: %s\n' "$package" >&2; exit 2; }
-	find "$package_dir" -type f -o -type l | while IFS= read -r source; do
+	# .stow-local-ignore is consumed by Stow and is never a managed target.
+	find "$package_dir" \( -type f -o -type l \) ! -name .stow-local-ignore | while IFS= read -r source; do
 		relative=${source#"$package_dir"/}
 		destination=$target/$relative
 		ancestor=$(dirname "$destination")
+		ancestor_conflict=0
 		while [ "$ancestor" != "$target" ] && [ "$ancestor" != "/" ]; do
-			if [ -L "$ancestor" ]; then
-				printf 'conflict: %s is an unrelated directory link needed by %s\n' "$ancestor" "$destination"
+			if [ -L "$ancestor" ] || { [ -e "$ancestor" ] && [ ! -d "$ancestor" ]; }; then
+				printf 'conflict: %s is an unrelated parent path needed by %s\n' "$ancestor" "$destination"
 				printf '%s\n' "$ancestor" >> "$conflicts"
+				ancestor_conflict=1
 				break
 			fi
 			ancestor=$(dirname "$ancestor")
 		done
+		# Stow cannot inspect a child below a conflicting parent.  Do not report
+		# or back up descendants separately; doing so would make backup mode try
+		# to move paths after their parent has already moved.
+		[ "$ancestor_conflict" -eq 1 ] && continue
 		if [ -e "$destination" ] || [ -L "$destination" ]; then
 			if [ -L "$destination" ] && [ "$(readlink -f "$destination")" = "$(readlink -f "$source")" ]; then
 				printf 'ok: already linked %s\n' "$destination"
